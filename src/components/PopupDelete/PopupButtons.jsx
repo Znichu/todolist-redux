@@ -18,10 +18,9 @@ class PopupButtons extends React.Component {
         return (
             <Popup
                 trigger={
-                    /*<Button size="mini" circular="circular" color="red" icon="trash"/>*/
                     <Icon color="red" name={"trash alternate outline"}/>
                 }
-                header="Movie Search"
+                header="Are you sure?"
                 content={
                     <Button.Group size="mini">
                         <Button onClick={this.handleClose} color="red" icon="close"/>

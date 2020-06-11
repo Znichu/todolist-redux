@@ -5,9 +5,14 @@ import TodoListFooter from "./TodoListFooter/TodoListFooter";
 import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
-import {addTask, changeFilterValue, deleteTask, deleteTodoList, updateTask} from "../redux/todo-reducer";
+import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
+import {Segment} from "semantic-ui-react";
 
 class TodoList extends React.Component {
+
+    componentDidMount() {
+        this.props.getTasks(this.props.id)
+    }
 
     addTask = (newText) => {
         this.props.addTask(newText, this.props.id)
@@ -42,17 +47,19 @@ class TodoList extends React.Component {
     };
 
     render = () => {
+        let {tasks = []} = this.props;
         return (
                 <div className={style.todoList}>
-                    <div className="todoList-header">
+                    <Segment stacked>
+                    <div className={style.todoListHeader}>
                         <TodoListTitle title={this.props.title} onDelete={this.deleteTodoList}/>
-                        <AddNewItemForm addItem={this.addTask}/>
+                        <AddNewItemForm size={"mini"} addItem={this.addTask}/>
                     </div>
                     <TodoListTasks changeStatus={this.changeStatus}
                                    changeTitle={this.changeTitle}
                                    changePriority={this.changePriority}
                                    deleteTask={this.deleteTask}
-                                   tasks={this.props.tasks.filter(t => {
+                                   tasks={tasks.filter(t => {
                                        switch (this.props.filterValue) {
                                            case "Completed":
                                                return t.isDone === true;
@@ -64,11 +71,12 @@ class TodoList extends React.Component {
                                    })}
                     />
                     <TodoListFooter changeFilterValue={this.changeFilterValue} filterValue={this.props.filterValue}/>
+                    </Segment>
                 </div>
         );
     }
 }
 
 
-export default connect(null, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue})(TodoList);
+export default connect(null, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue, getTasks})(TodoList);
 

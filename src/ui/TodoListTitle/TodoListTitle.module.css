@@ -1,0 +1,11 @@
+.todoListHeader__title {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.todoListHeaderDelete {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+

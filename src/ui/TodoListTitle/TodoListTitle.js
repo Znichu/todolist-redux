@@ -1,10 +1,16 @@
 import React from 'react';
-import '../../App.css';
+import style from "./TodoListTitle.module.css";
+import {Icon} from "semantic-ui-react";
 
 class TodoListTitle extends React.Component {
-   render = () => {
+    render = () => {
         return (
-                <h3 className="todoList-header__title">{this.props.title} <button onClick={this.props.onDelete}>X</button></h3>
+            <>
+                <h3 className={style.todoListHeader__title}>{this.props.title}</h3>
+                <div className={style.todoListHeaderDelete}>
+                    <Icon onClick={this.props.onDelete} name={"window close"} color={"red"} />
+                </div>
+            </>
         );
     }
 }

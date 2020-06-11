@@ -3,9 +3,14 @@ import './App.css';
 import TodoList from "./ui/TodoList";
 import AddNewItemForm from "./components/Form/AddNewItemForm";
 import {connect} from "react-redux";
-import {addTodoList} from "./redux/todo-reducer";
+import {addTodoList, getTodoLists} from "./redux/todo-reducer";
+
 
 class App extends React.Component {
+
+    componentDidMount() {
+        this.props.getTodoLists();
+    }
 
     addTodoList = (title) => {
         this.props.addTodoList(title);
@@ -22,14 +27,14 @@ class App extends React.Component {
             />);
 
         return (
-            <>
-                <div>
-                    <AddNewItemForm addItem={this.addTodoList}/>
+            <div className="App">
+                <div className="containerInput">
+                    <AddNewItemForm size={"small"} addItem={this.addTodoList}/>
                 </div>
-                <div className="App">
+                <div className="containerList">
                     {todoLists}
                 </div>
-            </>
+            </div>
         );
     }
 }
@@ -39,7 +44,7 @@ const mapStateToProps = (state) => ({
 
 });
 
-const ConnectedApp = connect(mapStateToProps, { addTodoList })(App);
+const ConnectedApp = connect(mapStateToProps, {addTodoList, getTodoLists})(App);
 
 
 export default ConnectedApp;

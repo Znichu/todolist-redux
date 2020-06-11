@@ -1,13 +1,14 @@
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import AppReducer from "./todo-reducer";
-import { save, load } from "redux-localstorage-simple"
+import thunk from "redux-thunk";
+
 
 const rootReducer = combineReducers({
     app: AppReducer,
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const createStoreWithMiddleware = composeEnhancers(applyMiddleware(save()))(createStore);
-const store = createStoreWithMiddleware(rootReducer, load());
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;
+
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 export default store;

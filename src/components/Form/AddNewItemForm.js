@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../App.css';
+import {Input} from "semantic-ui-react";
 
 class AddNewItemForm extends React.Component {
     state = {
@@ -35,18 +36,16 @@ class AddNewItemForm extends React.Component {
 
 
     render = () => {
-        let classNameForInput = this.state.error ? "error" : "";
+        let classNameForInput = this.state.error ? "error" : null;
 
         return (
-            <div className="todoList-newTaskForm">
-                <input className={classNameForInput} type="text" placeholder="New item name"
+                <Input fluid size={this.props.size}
+                       placeholder="New item name"
+                       value={this.state.title}
                        onChange={this.onTitleChanged}
                        onKeyPress={this.onKeyPress}
-                       value={this.state.title}
+                       className={classNameForInput}
                 />
-                <button onClick={this.onAddItemClick}>Add</button>
-            </div>
-
         );
     }
 }

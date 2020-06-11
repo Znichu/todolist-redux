@@ -1,5 +1,22 @@
 .todoListTask {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    position: relative;
+}
+
+.task {
+    display: inline-block;
+    margin: 10px;
+}
+
+.todoListTask input {
+    margin: 0 10px;
+}
+
+.editBlock {
+    position: absolute;
+    right: 0;
+}
+.priority {
+    margin: 0 35px 0 0;
 }

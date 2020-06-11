@@ -4,7 +4,6 @@ import SelectPriority from "../../../components/SelectPriority/SelectPriority";
 import {Checkbox, Header, Icon, Segment} from "semantic-ui-react";
 import PopupButtons from "../../../components/PopupDelete/PopupButtons";
 import style from "./TodoListTask.module.css"
-
 class TodoListTask extends React.Component {
 
     state = {
@@ -20,12 +19,13 @@ class TodoListTask extends React.Component {
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
                                      value={this.props.task.title}/>
-                            : <span>{this.props.task.title}</span>
+                            : <div className={style.task}> <span>{this.props.task.title}</span> </div>
+
                         }
-                    <div>
+                    <div className={style.priority}>
                         <SelectPriority onChange={this.onPriorityChanged} defaultValue={this.props.task.priority}/>
                     </div>
-                    <div>
+                    <div className={style.editBlock}>
                         <Icon onClick={this.activateEditMode} name='edit outline' color='green'/>
                         <PopupButtons onDeleteTask={this.onDeleteTask}/>
                     </div>

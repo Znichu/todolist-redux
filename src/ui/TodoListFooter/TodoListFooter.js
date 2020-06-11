@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../App.css';
+import style from "./TodoListFooter.module.css"
 import {Button} from "semantic-ui-react";
 
 class TodoListFooter extends React.Component {
@@ -21,7 +21,7 @@ class TodoListFooter extends React.Component {
         let active = this.props.filterValue === "Active" ? true : null;
 
         return (
-            <div className="todoList-footer">
+            <div className={style.todoListFooter}>
                 { !this.state.isHidden &&
                     <Button.Group size="tiny" color="blue">
                         <Button active={all} onClick={ this.onAllFilter }>All</Button>
