@@ -20,9 +20,6 @@ class TodoListTitle extends React.Component {
                     : <Input focus={true} onChange={this.onTitleChanged} onBlur={this.deactivateEditMode}
                              value={this.state.title}/>
                 }
-                <div className={style.todoListHeaderDelete}>
-                    <Icon onClick={this.props.onDelete} name={"window close"} color={"red"}/>
-                </div>
             </>
         );
     };

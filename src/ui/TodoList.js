@@ -6,7 +6,7 @@ import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
-import {Message, Segment} from "semantic-ui-react";
+import {Icon, Message, Segment} from "semantic-ui-react";
 
 class TodoList extends React.Component {
 
@@ -26,7 +26,7 @@ class TodoList extends React.Component {
         this.props.updateTask(this.props.id, taskId, task, obj)
     };
 
-    changeStatus = ( taskId, task, status) => {
+    changeStatus = (taskId, task, status) => {
         this.changeTask(taskId, task, {status: status})
     };
 
@@ -60,18 +60,22 @@ class TodoList extends React.Component {
     render = () => {
         let {tasks = []} = this.props;
         return (
-                <div className={style.todoList}>
-                    <Segment stacked>
+            <div className={style.todoList}>
+                <Segment stacked>
+                    <div className={style.todoListDelete}>
+                        <Icon onClick={this.props.onDelete} name={"window close"} color={"red"}/>
+                    </div>
                     <div className={style.todoListHeader}>
                         <TodoListTitle title={this.props.title}
                                        onDelete={this.deleteTodoList}
                                        id={this.props.id}
                         />
                         <div className={style.editBlock}>
-                        { !this.state.editMode
-                            ? <Message onClick={this.activateEditMode} size={"mini"} floating>Way to go!</Message>
-                            : <AddNewItemForm deactivateEditMode={this.deactivateEditMode} size={"mini"} addItem={this.addTask}/>
-                        }
+                            {!this.state.editMode
+                                ? <Message onClick={this.activateEditMode} size={"mini"} floating>Way to go!</Message>
+                                : <AddNewItemForm deactivateEditMode={this.deactivateEditMode} size={"mini"}
+                                                  addItem={this.addTask}/>
+                            }
                         </div>
                     </div>
                     <TodoListTasks changeStatus={this.changeStatus}
@@ -90,8 +94,8 @@ class TodoList extends React.Component {
                                    })}
                     />
                     <TodoListFooter changeFilterValue={this.changeFilterValue} filterValue={this.props.filterValue}/>
-                    </Segment>
-                </div>
+                </Segment>
+            </div>
         );
     }
 }
