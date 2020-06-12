@@ -5,6 +5,7 @@ const DELETE_TODOLIST = "DELETE-TODOLIST";
 const DELETE_TASK = "DELETE_TASK";
 const ADD_TASK = "ADD_TASK";
 const UPDATE_TASK = "UPDATE_TASK";
+const UPDATE_TODO_LIST_TITLE = "UPDATE_TODO_LIST_TITLE";
 const CHANGE_FILTER = "CHANGE_FILTER";
 const SET_TODO_LISTS = "SET_TODO_LISTS";
 const SET_TASKS = "SET_TASKS";
@@ -19,7 +20,7 @@ const AppReducer = (state = initialState, action) => {
         case SET_TODO_LISTS: {
             return {
                 ...state,
-                todoLists: action.todoLists.map(tl => ({...tl, tasks: []}))
+                todoLists: action.todoLists.map(tl => ({...tl, tasks: [], filterValue: "All"}))
             }
         }
         case SET_TASKS: {
@@ -107,6 +108,20 @@ const AppReducer = (state = initialState, action) => {
                 })
             }
         }
+        case UPDATE_TODO_LIST_TITLE: {
+            return {
+                ...state,
+                todoLists: state.todoLists.map(tl => {
+                    if (tl.id === action.todoListId) {
+                        return {
+                            ...tl, title: action.title
+                        }
+                    } else  {
+                        return tl
+                    }
+                })
+            }
+        }
         default:
             return state;
     }
@@ -117,9 +132,10 @@ export const setTasks = (todoListId, tasks) => ({type: SET_TASKS, todoListId, ta
 export const appendTodoList = (todoList) => ({type: ADD_TODOLIST, todoList});
 export const appendTask = (task, todoListId) => ({type: ADD_TASK, task, todoListId});
 export const removeTodoList = (todoListId) => ({type: DELETE_TODOLIST, todoListId});
-export const deleteTask = (taskId, todoListId) => ({type: DELETE_TASK, taskId, todoListId});
-export const updateTask = (taskId, obj, todoListId) => ({type: UPDATE_TASK, taskId, obj, todoListId});
+export const removeTask = (todoListId, taskId) => ({type: DELETE_TASK, todoListId, taskId});
+export const changeTask = (todoListId, taskId, obj) => ({type: UPDATE_TASK, todoListId, taskId, obj});
 export const changeFilterValue = (todoListId, filterValue) => ({type: CHANGE_FILTER, todoListId, filterValue});
+export const changeTodoListTitle = (todoListId, title) => ({ type: UPDATE_TODO_LIST_TITLE, todoListId, title });
 
 export const getTodoLists = () => {
     return (dispatch) => {
@@ -149,7 +165,17 @@ export const addTodoList = (title) => {
                 }
             })
     }
-}
+};
+export const addTask = (title, todoListId) => {
+    return (dispatch) => {
+        todoListAPI.addTask(title, todoListId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(appendTask(data.data.item, todoListId))
+                }
+            })
+    }
+};
 export const deleteTodoList = (todoListId) => {
     return (dispatch) => {
         todoListAPI.deleteTodoList(todoListId)
@@ -160,16 +186,33 @@ export const deleteTodoList = (todoListId) => {
             })
     }
 };
-export const addTask = (title, todoListId) => {
+export const deleteTask = (todoListId, taskId) => {
     return (dispatch) => {
-        todoListAPI.addTask(title, todoListId)
+        todoListAPI.deleteTask(todoListId, taskId)
             .then(data => {
-                debugger
-                if (data.resultCode === 0) {
-                    debugger
-                    dispatch(appendTask(data.data.item, todoListId))
+                if (data.resultCode ===0) {
+                    dispatch(removeTask(todoListId, taskId))
                 }
             })
+    }
+};
+export const updateTask = (todoListId, taskId, task, obj) => {
+    return (dispatch) => {
+        todoListAPI.updateTask(todoListId, taskId, task, obj)
+            .then(data => {
+                if (data.resultCode ===0) {
+                    dispatch(changeTask(todoListId, taskId, data.data.item))
+                }
+            })
+    }
+};
+export const updateTodoListTitle = (todoListId, title) => {
+    return (dispatch) => {
+        todoListAPI.updateTodoListTitle(todoListId, title)
+            .then(data => {
+                dispatch(changeTodoListTitle(todoListId, title))
+            })
+
     }
 }
 

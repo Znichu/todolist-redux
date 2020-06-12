@@ -26,5 +26,17 @@ export const todoListAPI = {
     deleteTodoList (todoListId) {
         return instance.delete("/todo-lists/" + todoListId)
             .then(response => response.data)
+    },
+    deleteTask (todoListId, taskId) {
+        return instance.delete(`/todo-lists/${todoListId}/tasks/${taskId}`)
+            .then(response => response.data)
+    },
+    updateTask (todoListId, taskId, task, obj) {
+        return instance.put(`/todo-lists/${todoListId}/tasks/${taskId}`, {...task, ...obj})
+            .then(response => response.data)
+    },
+    updateTodoListTitle (todoListId, title) {
+        return instance.put(`/todo-lists/${todoListId}`, {title})
+            .then(response => response.data)
     }
 };

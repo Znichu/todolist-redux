@@ -18,6 +18,7 @@ class AddNewItemForm extends React.Component {
             this.setState({error: false});
             // передаём новый текст наружу
             this.props.addItem(newText);
+            this.props.deactivateEditMode();
         }
     }
 
@@ -45,6 +46,7 @@ class AddNewItemForm extends React.Component {
                        onChange={this.onTitleChanged}
                        onKeyPress={this.onKeyPress}
                        className={classNameForInput}
+                       focus={true}
                 />
         );
     }

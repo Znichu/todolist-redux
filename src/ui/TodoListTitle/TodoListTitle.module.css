@@ -1,4 +1,7 @@
 .todoListHeader__title {
+    margin: 10px;
+}
+.todoListHeader__title h3 {
     font-size: 25px;
     text-align: center;
     margin-bottom: 5px;

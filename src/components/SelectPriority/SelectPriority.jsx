@@ -5,17 +5,27 @@ const friendOptions = [
     {
         key: 'low',
         text: 'low',
-        value: 'low',
+        value: 0,
     },
     {
         key: 'middle',
         text: 'middle',
-        value: 'middle',
+        value: 1,
     },
     {
         key: 'high',
         text: 'high',
-        value: 'high',
+        value: 2,
+    },
+    {
+        key: 'urgently',
+        text: 'urgently',
+        value: 3,
+    },
+    {
+        key: 'later',
+        text: 'later',
+        value: 4,
     },
 ];
 

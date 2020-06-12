@@ -6,9 +6,13 @@ import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
-import {Segment} from "semantic-ui-react";
+import {Message, Segment} from "semantic-ui-react";
 
 class TodoList extends React.Component {
+
+    state = {
+        editMode: false
+    };
 
     componentDidMount() {
         this.props.getTasks(this.props.id)
@@ -18,20 +22,20 @@ class TodoList extends React.Component {
         this.props.addTask(newText, this.props.id)
     };
 
-    changeTask = (taskId, obj) => {
-        this.props.updateTask(taskId, obj, this.props.id)
+    changeTask = (taskId, task, obj) => {
+        this.props.updateTask(this.props.id, taskId, task, obj)
     };
 
-    changeStatus = (taskId, isDone) => {
-        this.changeTask(taskId, {isDone: isDone})
+    changeStatus = ( taskId, task, status) => {
+        this.changeTask(taskId, task, {status: status})
     };
 
-    changeTitle = (taskId, title) => {
-        this.changeTask(taskId, {title: title})
+    changeTitle = (taskId, task, title) => {
+        this.changeTask(taskId, task, {title: title})
     };
 
-    changePriority = (taskId, priority) => {
-        this.changeTask(taskId, {priority: priority})
+    changePriority = (taskId, task, priority) => {
+        this.changeTask(taskId, task, {priority: priority})
     };
 
     changeFilterValue = (filterValue) => {
@@ -43,7 +47,14 @@ class TodoList extends React.Component {
     };
 
     deleteTask = (taskId) => {
-        this.props.deleteTask(taskId, this.props.id)
+        this.props.deleteTask(this.props.id, taskId)
+    };
+    activateEditMode = () => {
+        this.setState({editMode: true});
+    };
+
+    deactivateEditMode = () => {
+        this.setState({editMode: false, title: ""});
     };
 
     render = () => {
@@ -52,8 +63,16 @@ class TodoList extends React.Component {
                 <div className={style.todoList}>
                     <Segment stacked>
                     <div className={style.todoListHeader}>
-                        <TodoListTitle title={this.props.title} onDelete={this.deleteTodoList}/>
-                        <AddNewItemForm size={"mini"} addItem={this.addTask}/>
+                        <TodoListTitle title={this.props.title}
+                                       onDelete={this.deleteTodoList}
+                                       id={this.props.id}
+                        />
+                        <div className={style.editBlock}>
+                        { !this.state.editMode
+                            ? <Message onClick={this.activateEditMode} size={"mini"} floating>Way to go!</Message>
+                            : <AddNewItemForm deactivateEditMode={this.deactivateEditMode} size={"mini"} addItem={this.addTask}/>
+                        }
+                        </div>
                     </div>
                     <TodoListTasks changeStatus={this.changeStatus}
                                    changeTitle={this.changeTitle}
@@ -62,9 +81,9 @@ class TodoList extends React.Component {
                                    tasks={tasks.filter(t => {
                                        switch (this.props.filterValue) {
                                            case "Completed":
-                                               return t.isDone === true;
+                                               return t.status === 2;
                                            case "Active":
-                                               return t.isDone === false;
+                                               return t.status === 0;
                                            default:
                                                return true
                                        }

@@ -3,7 +3,7 @@ import './App.css';
 import TodoList from "./ui/TodoList";
 import AddNewItemForm from "./components/Form/AddNewItemForm";
 import {connect} from "react-redux";
-import {addTodoList, getTodoLists} from "./redux/todo-reducer";
+import {addTodoList, getTodoLists, updateTodoListTitle} from "./redux/todo-reducer";
 
 
 class App extends React.Component {

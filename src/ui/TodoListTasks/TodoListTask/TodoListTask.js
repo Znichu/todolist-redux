@@ -1,24 +1,26 @@
 import React from 'react';
 import '../../../App.css';
 import SelectPriority from "../../../components/SelectPriority/SelectPriority";
-import {Checkbox, Header, Icon, Segment} from "semantic-ui-react";
+import {Checkbox, Icon, Segment} from "semantic-ui-react";
 import PopupButtons from "../../../components/PopupDelete/PopupButtons";
 import style from "./TodoListTask.module.css"
 class TodoListTask extends React.Component {
 
     state = {
-        editMode: false
+        editMode: false,
+        title: this.props.task.title
     };
 
     render = () => {
-        let color = this.props.task.isDone ? "green" : "blue";
+        let color = this.props.task.status === 2 ? "green" : "blue";
+        let status = this.props.task.status === 2;
         return (
             <Segment raised color={color} size={"small"}>
                 <div className={style.todoListTask}>
-                        <Checkbox checked={this.props.task.isDone} onChange={this.onIsDoneChanged} />
+                        <Checkbox checked={status} onChange={this.onIsDoneChanged} />
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
-                                     value={this.props.task.title}/>
+                                     value={this.state.title}/>
                             : <div className={style.task}> <span>{this.props.task.title}</span> </div>
 
                         }
@@ -33,29 +35,31 @@ class TodoListTask extends React.Component {
             </Segment>
 
         );
-    }
+    };
 
     onIsDoneChanged = (e, {checked}) => {
-        this.props.changeStatus(this.props.task.id, checked);
-    }
+        let status = checked ? 2 : 0;
+        this.props.changeStatus(this.props.task.id, this.props.task, status);
+    };
 
     onTitleChanged = (e) => {
-        this.props.changeTitle(this.props.task.id, e.currentTarget.value);
-    }
+        this.setState({title: e.currentTarget.value});
+    };
     onPriorityChanged = (e, {value}) => {
-        this.props.changePriority(this.props.task.id, value)
-    }
+        this.props.changePriority(this.props.task.id, this.props.task, value)
+    };
 
     activateEditMode = () => {
         this.setState({editMode: true});
-    }
+    };
 
     deactivateEditMode = () => {
-        this.setState({editMode: false});
-    }
+        this.setState({editMode: false, title: ""});
+        this.props.changeTitle(this.props.task.id, this.props.task, this.state.title);
+    };
     onDeleteTask = () => {
         this.props.deleteTask(this.props.task.id);
-    }
+    };
 }
 
 export default TodoListTask;
