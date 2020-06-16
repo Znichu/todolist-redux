@@ -6,7 +6,7 @@ import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
-import {Icon, Message, Segment} from "semantic-ui-react";
+import {Icon, Segment} from "semantic-ui-react";
 
 class TodoList extends React.Component {
 
@@ -72,8 +72,11 @@ class TodoList extends React.Component {
                         />
                         <div className={style.editBlock}>
                             {!this.state.editMode
-                                ? <Message onClick={this.activateEditMode} size={"mini"} floating>Way to go!</Message>
-                                : <AddNewItemForm deactivateEditMode={this.deactivateEditMode} size={"mini"}
+                                ?  <Segment onClick={this.activateEditMode} size="small" inverted color="blue">Add task</Segment>
+                                : <AddNewItemForm deactivateEditMode={this.deactivateEditMode}
+                                                  onBlur={this.deactivateEditMode}
+                                                  autoFocus={true}
+                                                  size={"mini"}
                                                   addItem={this.addTask}/>
                             }
                         </div>

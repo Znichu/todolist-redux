@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "./TodoListTitle.module.css";
-import {Icon, Input} from "semantic-ui-react";
+import {Input} from "semantic-ui-react";
 import {connect} from "react-redux";
 import {updateTodoListTitle} from "../../redux/todo-reducer";
 

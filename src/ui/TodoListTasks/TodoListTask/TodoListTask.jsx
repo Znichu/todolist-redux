@@ -13,6 +13,7 @@ class TodoListTask extends React.Component {
 
     render = () => {
         let color = this.props.task.status === 2 ? "green" : "blue";
+        let textStyle = this.props.task.status === 2 ? style.complete : null;
         let status = this.props.task.status === 2;
         return (
             <Segment raised color={color} size={"small"}>
@@ -21,14 +22,18 @@ class TodoListTask extends React.Component {
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
                                      value={this.state.title}/>
-                            : <div className={style.task}> <span>{this.props.task.title}</span> </div>
+                            : <div className={style.task}> <span className={textStyle}>{this.props.task.title}</span> </div>
 
                         }
                     <div className={style.priority}>
+                        { this.props.task.status !== 2 &&
                         <SelectPriority onChange={this.onPriorityChanged} defaultValue={this.props.task.priority}/>
+                        }
                     </div>
                     <div className={style.editBlock}>
+                        { this.props.task.status !== 2 &&
                         <Icon onClick={this.activateEditMode} name='edit outline' color='green'/>
+                        }
                         <PopupButtons onDeleteTask={this.onDeleteTask}/>
                     </div>
                 </div>

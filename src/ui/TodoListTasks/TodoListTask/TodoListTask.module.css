@@ -20,3 +20,6 @@
 .priority {
     margin: 0 35px 0 0;
 }
+.complete {
+    text-decoration: line-through;
+}

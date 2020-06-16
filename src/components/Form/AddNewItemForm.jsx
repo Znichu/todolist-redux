@@ -46,7 +46,8 @@ class AddNewItemForm extends React.Component {
                        onChange={this.onTitleChanged}
                        onKeyPress={this.onKeyPress}
                        className={classNameForInput}
-                       focus={true}
+                       autoFocus={this.props.autoFocus}
+                       onBlur={this.props.onBlur}
                 />
         );
     }

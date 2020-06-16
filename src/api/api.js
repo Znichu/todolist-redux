@@ -15,6 +15,10 @@ export const todoListAPI = {
         return instance.get(`/todo-lists/${todoListId}/tasks`)
             .then(response => response.data)
     },
+    getAuth () {
+        return instance.get("/auth/me")
+            .then(response => response.data)
+    },
     addTodoList (title) {
       return instance.post("/todo-lists", {title})
           .then(response => response.data)
@@ -38,5 +42,9 @@ export const todoListAPI = {
     updateTodoListTitle (todoListId, title) {
         return instance.put(`/todo-lists/${todoListId}`, {title})
             .then(response => response.data)
-    }
+    },
+    login (email, password, rememberMe = false) {
+        return instance.post("/auth/login", {email, password, rememberMe})
+            .then(response => response.data)
+    },
 };
