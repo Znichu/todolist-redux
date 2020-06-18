@@ -7,21 +7,37 @@ import {updateTodoListTitle} from "../../redux/todo-reducer";
 class TodoListTitle extends React.Component {
     state = {
         editMode: false,
-        title: this.props.title
+        title: this.props.title,
+        error: false
     };
 
     render = () => {
+
+        let errorTitleTodoList = this.state.error ? "error" : null;
+
         return (
             <>
                 {!this.state.editMode
                     ? <div className={style.todoListHeader__title}>
                         <h3 onClick={this.activateEditMode}>{this.props.title}</h3>
                     </div>
-                    : <Input focus={true} onChange={this.onTitleChanged} onBlur={this.deactivateEditMode}
-                             value={this.state.title}/>
+                    : <Input focus={true}
+                             onChange={this.onTitleChanged}
+                             onBlur={this.deactivateEditMode}
+                             autoFocus={true}
+                             value={this.state.title}
+                             error={errorTitleTodoList}
+                             onKeyPress={ this.onKeyPress }
+                    />
                 }
             </>
         );
+    };
+
+    onKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.deactivateEditMode();
+        }
     };
 
     onTitleChanged = (e) => {
@@ -32,9 +48,14 @@ class TodoListTitle extends React.Component {
     };
 
     deactivateEditMode = () => {
-        this.setState({editMode: false, title: ""});
-        this.props.updateTodoListTitle(this.props.id, this.state.title);
+        if (this.state.title === "") {
+            this.setState({ error: true })
+        } else {
+            this.setState({editMode: false, title: ""});
+            this.props.updateTodoListTitle(this.props.id, this.state.title);
+        }
     };
+
 }
 
 

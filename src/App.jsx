@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {addTodoList, getTodoLists} from "./redux/todo-reducer";
 import {login, setAuth} from "./redux/app-reducer";
 import Login from "./components/Form/Login";
+import Avatar from "./components/Avatar/Avatar";
 
 
 class App extends React.Component {
@@ -20,7 +21,6 @@ class App extends React.Component {
     };
 
 
-
     render = () => {
         const todoLists = this.props
             .todoLists
@@ -33,10 +33,13 @@ class App extends React.Component {
 
 
         if (!this.props.isAuth) {
-            return <div className="App"><Login login={this.props.login} /></div>
+            return <div className="App"><Login login={this.props.login}/></div>
         }
         return (
             <div className="App">
+                <div className="headerAuth">
+                    <Avatar userName={this.props.userName}/>
+                </div>
                 <div className="headerTitle">
                     <h1>TodoList </h1>
                 </div>
@@ -53,11 +56,12 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
     todoLists: state.app.todoLists,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    userName: state.auth.login
 
 });
 
-const ConnectedApp = connect(mapStateToProps, { addTodoList, getTodoLists, setAuth, login })(App);
+const ConnectedApp = connect(mapStateToProps, {addTodoList, getTodoLists, setAuth, login})(App);
 
 
 export default ConnectedApp;

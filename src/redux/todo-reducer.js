@@ -84,7 +84,7 @@ const AppReducer = (state = initialState, action) => {
                                 if (t.id !== action.taskId) {
                                     return t;
                                 } else {
-                                    return {...t, ...action.obj};
+                                    return {...t, ...action.newTask};
                                 }
                             })
                         }
@@ -133,7 +133,7 @@ export const appendTodoList = (todoList) => ({type: ADD_TODOLIST, todoList});
 export const appendTask = (task, todoListId) => ({type: ADD_TASK, task, todoListId});
 export const removeTodoList = (todoListId) => ({type: DELETE_TODOLIST, todoListId});
 export const removeTask = (todoListId, taskId) => ({type: DELETE_TASK, todoListId, taskId});
-export const changeTask = (todoListId, taskId, obj) => ({type: UPDATE_TASK, todoListId, taskId, obj});
+export const changeTask = (todoListId, taskId, newTask) => ({type: UPDATE_TASK, todoListId, taskId, newTask});
 export const changeFilterValue = (todoListId, filterValue) => ({type: CHANGE_FILTER, todoListId, filterValue});
 export const changeTodoListTitle = (todoListId, title) => ({ type: UPDATE_TODO_LIST_TITLE, todoListId, title });
 
@@ -196,9 +196,9 @@ export const deleteTask = (todoListId, taskId) => {
             })
     }
 };
-export const updateTask = (todoListId, taskId, task, obj) => {
+export const updateTask = (todoListId, taskId, newTask) => {
     return (dispatch) => {
-        todoListAPI.updateTask(todoListId, taskId, task, obj)
+        todoListAPI.updateTask(todoListId, taskId, newTask)
             .then(data => {
                 if (data.resultCode ===0) {
                     dispatch(changeTask(todoListId, taskId, data.data.item))
