@@ -5,7 +5,7 @@ import { Dropdown } from 'semantic-ui-react'
 const DropdownMenu = (props) => (
     <Dropdown compact text={props.userName}>
         <Dropdown.Menu>
-            <Dropdown.Item text='Log out' />
+            <Dropdown.Item onClick={props.logout} text='Log out' />
         </Dropdown.Menu>
     </Dropdown>
 )

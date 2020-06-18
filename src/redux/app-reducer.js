@@ -37,6 +37,14 @@ export const login = (email, password, rememberMe) => (dispatch) => {
             }
         })
 };
+export const logout = () => (dispatch) => {
+    todoListAPI.logout()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthData(null, null, null, false))
+            }
+        })
+};
 
 export const setAuth = () => (dispatch) => {
     todoListAPI.getAuth()

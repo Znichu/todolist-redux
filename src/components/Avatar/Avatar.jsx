@@ -5,7 +5,7 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 const Avatar = (props) => (
     <div>
         <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' avatar />
-        <DropdownMenu userName={props.userName} />
+        <DropdownMenu logout={props.logout} userName={props.userName} />
     </div>
 );
 

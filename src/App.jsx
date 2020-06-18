@@ -4,7 +4,7 @@ import TodoList from "./ui/TodoList";
 import AddNewItemForm from "./components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTodoList, getTodoLists} from "./redux/todo-reducer";
-import {login, setAuth} from "./redux/app-reducer";
+import {login, logout, setAuth} from "./redux/app-reducer";
 import Login from "./components/Form/Login";
 import Avatar from "./components/Avatar/Avatar";
 
@@ -38,7 +38,7 @@ class App extends React.Component {
         return (
             <div className="App">
                 <div className="headerAuth">
-                    <Avatar userName={this.props.userName}/>
+                    <Avatar logout={this.props.logout} userName={this.props.userName}/>
                 </div>
                 <div className="headerTitle">
                     <h1>TodoList </h1>
@@ -61,7 +61,7 @@ const mapStateToProps = (state) => ({
 
 });
 
-const ConnectedApp = connect(mapStateToProps, {addTodoList, getTodoLists, setAuth, login})(App);
+const ConnectedApp = connect(mapStateToProps, { addTodoList, getTodoLists, setAuth, login, logout })(App);
 
 
 export default ConnectedApp;

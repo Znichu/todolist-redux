@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="298d35b6-b5f9-4783-a499-0744f1244954" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ui/TodoList.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Avatar/Avatar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Avatar/Avatar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DropdownMenu/DropdownMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DropdownMenu/DropdownMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/app-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/app-reducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,28 +18,32 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1d2NYGxWnJthSLcLJfXaNGNzT7a" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ui/TodoListTasks/TodoListTask" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListTasks\TodoListTask" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\Desktop\todolist-redux\src\components\Form" />
       <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListTasks\TodoListTask" />
       <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListTasks" />
       <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListTitle" />
       <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListFooter" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListTitle" />
+      <recent name="C:\Users\User\Desktop\todolist-redux\src\ui\TodoListTasks\TodoListTask" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -55,11 +62,70 @@
       <workItem from="1591769706857" duration="3665000" />
       <workItem from="1591775379784" duration="9184000" />
       <workItem from="1591789404219" duration="7538000" />
+      <workItem from="1591855815463" duration="20677000" />
+      <workItem from="1591942433453" duration="16990000" />
+      <workItem from="1592297135128" duration="13328000" />
+      <workItem from="1592386661114" duration="3673000" />
+      <workItem from="1592473768643" duration="302000" />
+      <workItem from="1592483074712" duration="4324000" />
     </task>
+    <task id="LOCAL-00001" summary="add work with api">
+      <created>1591882912462</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591882912472</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add work with api update task">
+      <created>1591962720853</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591962720853</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add style">
+      <created>1591964587931</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591964587931</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add login to Todo List">
+      <created>1592313657956</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1592313657956</updated>
+    </task>
+    <task id="LOCAL-00005" summary="styling login form">
+      <created>1592315269149</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1592315269149</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add user avatar and fix update task api request">
+      <created>1592486966045</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1592486966045</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add work with api" />
+    <MESSAGE value="add work with api update task" />
+    <MESSAGE value="add style" />
+    <MESSAGE value="add login to Todo List" />
+    <MESSAGE value="styling login form" />
+    <MESSAGE value="Add user avatar and fix update task api request" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add user avatar and fix update task api request" />
   </component>
   <component name="WindowStateProjectService">
     <state x="742" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591689520469">
@@ -70,6 +136,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1591774922338" />
+    <state x="583" y="109" key="CommitChangelistDialog2" timestamp="1592486962578">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="583" y="109" key="CommitChangelistDialog2/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1592486962578" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1592474072295">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1592474072295" />
     <state width="1899" height="261" key="GridCell.Tab.0.bottom" timestamp="1591620447151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -86,10 +160,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="261" key="GridCell.Tab.0.right/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1591620447150" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1591706625363">
+    <state x="552" y="249" key="Vcs.Push.Dialog.v2" timestamp="1592486975718">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1591706625363" />
+    <state x="552" y="249" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1592486975718" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1592315048529">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/-1366.0.1366.728@0.0.1920.1040" timestamp="1592315048529" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1591790795140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
