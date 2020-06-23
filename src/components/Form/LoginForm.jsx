@@ -1,17 +1,32 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {Button, Input} from "semantic-ui-react";
+import {Button, Checkbox, Header, Image, Input, Message, Segment} from "semantic-ui-react";
 import style from "./LoginForm.module.css"
+import logo from "../../assets/img/logo.png"
 
-const SignupForm = (props) => {
-    // Pass the useFormik() hook initial form values and a submit function that will
-    // be called when the form is submitted
+const validate = values => {
+    const errors = {};
+    if (!values.email) {
+        errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
+    }
+    if (!values.password) {
+        errors.password = 'No password provided';
+    }
+
+    return errors;
+};
+
+
+const LoginForm = (props) => {
     const formik = useFormik({
         initialValues: {
             email: '',
             password: "",
-            rememberMe: ""
+            rememberMe: false
         },
+        validate,
         onSubmit: values => {
             let {email, password, rememberMe} = values;
             props.login(email, password, rememberMe)
@@ -19,47 +34,59 @@ const SignupForm = (props) => {
     });
     return (
         <div className={style.loginForm}>
-            <form onSubmit={formik.handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
-                </div>
-                <div className={style.loginFormItem}>
-                    <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                </div>
-                <div className={style.loginFormItem}>
-                    <Input
-                        id="password"
-                        name="password"
-                        type="password"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                    />
-                </div>
-                <div className={style.loginFormItem}>
-                    <input
-                        id="rememberMe"
-                        name="rememberMe"
-                        type="checkbox"
-                        onChange={formik.handleChange}
-                        value={formik.values.rememberMe}
-                    />
-                    <label htmlFor="password">remember me</label>
-                </div>
+            <div className={style.formBody} style={{maxWidth: 450}}>
+                <Header as='h2' color='teal' textAlign='center'>
+                    <Image src={logo}/> Log-in to your account
+                </Header>
 
-
-                <Button color='blue' type="submit">Submit</Button>
-            </form>
+                <form onSubmit={formik.handleSubmit}>
+                    <Segment className={style.loginSegment}>
+                        <div className={style.loginFormItem}>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                                fluid
+                                icon="user"
+                                iconPosition="left"
+                                placeholder="E-mail address"
+                            />
+                            {formik.errors.email ? <Message color="red" size="mini">{formik.errors.email}</Message> : null}
+                        </div>
+                        <div className={style.loginFormItem}>
+                            <Input
+                                id="password"
+                                name="password"
+                                type="password"
+                                onChange={formik.handleChange}
+                                value={formik.values.password}
+                                fluid
+                                icon="lock"
+                                iconPosition="left"
+                                placeholder="Password"
+                            />
+                            {formik.errors.password ? <Message color="red" size="mini">{formik.errors.password}</Message> : null}
+                        </div>
+                        <div className={style.loginFormItem}>
+                            <Checkbox
+                                label="Remember me"
+                                id="rememberMe"
+                                name="rememberMe"
+                                type="checkbox"
+                                onChange={formik.handleChange}
+                                value={formik.values.rememberMe}
+                            />
+                        </div>
+                        <Button type="submit" color='teal' fluid size='large'>
+                            Login
+                        </Button>
+                    </Segment>
+                </form>
+            </div>
         </div>
     );
 };
 
-export default SignupForm
+export default LoginForm

@@ -6,7 +6,7 @@ import AuthReducer from "./app-reducer";
 
 const rootReducer = combineReducers({
     app: AppReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;

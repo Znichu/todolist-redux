@@ -55,7 +55,7 @@ class TodoList extends React.Component {
     };
 
     deactivateEditMode = () => {
-        this.setState({editMode: false, title: ""});
+        this.setState({editMode: false});
     };
 
     render = () => {
@@ -64,7 +64,7 @@ class TodoList extends React.Component {
             <div className={style.todoList}>
                 <Segment stacked>
                     <div className={style.todoListDelete}>
-                        <Icon onClick={this.props.onDelete} name={"window close"} color={"red"}/>
+                        <Icon onClick={this.deleteTodoList} name={"window close"} color={"red"}/>
                     </div>
                     <div className={style.todoListHeader}>
                         <TodoListTitle title={this.props.title}

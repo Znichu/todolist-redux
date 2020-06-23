@@ -4,7 +4,7 @@
     justify-content: flex-start;
     align-items: center;
     background-image: linear-gradient( 109.6deg,  rgba(102,203,149,1) 11.2%, rgba(39,210,175,1) 98.7% );
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .headerAuth {
@@ -44,8 +44,8 @@ i.icon:hover {
     padding: 3px 10px;
 }
 
-.ui.button {
-    margin-left: 10px;
+.ui.buttons {
+    margin: 0 10px 0 0;
 }
 
 .ui.message {
