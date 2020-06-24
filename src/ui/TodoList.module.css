@@ -1,13 +1,15 @@
 .todoList {
     position: relative;
-    min-width: 350px;
-    margin: 15px;
-    margin-top: 40px;
+    width: 300px;
+    margin: 5px 5px;
+    box-sizing: border-box;
 }
 .todoListHeader {
-    width: 100%;
     text-align: center;
-    margin: 15px 0 28px 0;
+}
+
+.addTaskSegment {
+    padding: 3px 10px !important;
 }
 
 .todoListDelete {

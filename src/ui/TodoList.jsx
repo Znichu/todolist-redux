@@ -71,16 +71,6 @@ class TodoList extends React.Component {
                                        onDelete={this.deleteTodoList}
                                        id={this.props.id}
                         />
-                        <div className={style.editBlock}>
-                            {!this.state.editMode
-                                ?  <Segment onClick={this.activateEditMode} size="small" inverted color="blue">Add task</Segment>
-                                : <AddNewItemForm deactivateEditMode={this.deactivateEditMode}
-                                                  onBlur={this.deactivateEditMode}
-                                                  autoFocus={true}
-                                                  size={"mini"}
-                                                  addItem={this.addTask}/>
-                            }
-                        </div>
                     </div>
                     <TodoListTasks changeStatus={this.changeStatus}
                                    changeTitle={this.changeTitle}
@@ -97,7 +87,17 @@ class TodoList extends React.Component {
                                        }
                                    })}
                     />
-                    <TodoListFooter changeFilterValue={this.changeFilterValue} filterValue={this.props.filterValue}/>
+                    <div className={style.editBlock}>
+                        {!this.state.editMode
+                            ?  <Segment onClick={this.activateEditMode} size="small" inverted color="blue">Add task</Segment>
+                            : <AddNewItemForm deactivateEditMode={this.deactivateEditMode}
+                                              onBlur={this.deactivateEditMode}
+                                              autoFocus={true}
+                                              size={"mini"}
+                                              addItem={this.addTask}/>
+                        }
+                    </div>
+                    {/*<TodoListFooter changeFilterValue={this.changeFilterValue} filterValue={this.props.filterValue}/>*/}
                 </Segment>
             </div>
         );

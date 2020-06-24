@@ -2,33 +2,36 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    background-image: linear-gradient( 109.6deg,  rgba(102,203,149,1) 11.2%, rgba(39,210,175,1) 98.7% );
+    background-color: #4BBF6B;
     min-height: 100vh;
 }
-
+.addTodoList {
+    background: hsla(0, 0%, 100%, 0.32) !important;
+    color: #eeffee !important;
+    height: 40px;
+    cursor: pointer;
+}
+.addTodoList:hover {
+    background-color: #2185d0 !important;
+}
 .headerAuth {
     display: flex;
-    justify-content: flex-end;
-    padding: 10px 35px;
-    height: 50px;
-    width: 100%;
+    justify-content: center;
+    background-color: #40A35B;
+    height: 40px;
+    text-align: center;
+    color: #eeffee;
 }
 
-.headerTitle {
-    margin:20px 0 50px 20px;
-    color: white;
-}
-
-.containerInput {
-    width: 50%;
+.containerAddTodo {
+    width: 300px;
+    margin: 5px 5px;
 }
 .containerList {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 80%;
 }
 
 i.icon {
@@ -38,10 +41,6 @@ i.icon {
 
 i.icon:hover {
     opacity: 0.9;
-}
-
-.ui.segment {
-    padding: 3px 10px;
 }
 
 .ui.buttons {

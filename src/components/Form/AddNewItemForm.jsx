@@ -20,20 +20,20 @@ class AddNewItemForm extends React.Component {
             this.props.addItem(newText);
             this.props.deactivateEditMode();
         }
-    }
+    };
 
     onTitleChanged = (e) => {
         this.setState({
             error: false,
             title: e.currentTarget.value
         });
-    }
+    };
 
     onKeyPress = (e) => {
         if (e.key === "Enter") {
             this.onAddItemClick();
         }
-    }
+    };
 
 
     render = () => {

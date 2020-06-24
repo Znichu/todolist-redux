@@ -4,6 +4,9 @@ import SelectPriority from "../../../components/SelectPriority/SelectPriority";
 import {Checkbox, Icon, Segment} from "semantic-ui-react";
 import PopupButtons from "../../../components/PopupDelete/PopupButtons";
 import style from "./TodoListTask.module.css"
+import classNames from 'classnames'
+
+
 class TodoListTask extends React.Component {
 
     state = {
@@ -15,14 +18,15 @@ class TodoListTask extends React.Component {
         let color = this.props.task.status === 2 ? "green" : "blue";
         let textStyle = this.props.task.status === 2 ? style.complete : null;
         let status = this.props.task.status === 2;
+        let taskItem = classNames(style.list, style.listCard);
         return (
-            <Segment raised color={color} size={"small"}>
+            <Segment className={style.addTaskSegment} raised color={color} size={"small"}>
                 <div className={style.todoListTask}>
                         <Checkbox checked={status} onChange={this.onIsDoneChanged} />
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
                                      value={this.state.title}/>
-                            : <div className={style.task}> <span className={textStyle}>{this.props.task.title}</span> </div>
+                            : <div  className={taskItem}><span className={style.task}>{this.props.task.title}</span> </div>
 
                         }
                     <div className={style.priority}>

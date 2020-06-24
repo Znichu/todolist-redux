@@ -5,12 +5,17 @@ import AddNewItemForm from "./components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTodoList, getTodoLists} from "./redux/todo-reducer";
 import {initialized, login, logout, setAuth} from "./redux/app-reducer";
-import Avatar from "./components/Avatar/Avatar";
 import LoginForm from "./components/Form/LoginForm";
-import {Header} from "semantic-ui-react";
+import {Segment} from "semantic-ui-react";
+import Header from "./ui/Header/Header";
+
 
 
 class App extends React.Component {
+
+    state = {
+        editMode: false
+    };
 
     componentDidMount() {
         this.props.initialized();
@@ -19,6 +24,12 @@ class App extends React.Component {
 
     addTodoList = (title) => {
         this.props.addTodoList(title);
+    };
+    activateEditMode = () => {
+        this.setState({editMode: true})
+    };
+    deactivateEditMode = () => {
+        this.setState({editMode: false})
     };
 
 
@@ -37,20 +48,20 @@ class App extends React.Component {
             return <LoginForm login={this.props.login}/>
         }
         return (
-                <div className="App">
-                    <div className="headerAuth">
-                        <Avatar logout={this.props.logout} userName={this.props.userName}/>
-                    </div>
-                    <Header as="h1" color="white" textAlign="center">
-                        Todo List App
-                    </Header>
-                    <div className="containerInput">
-                        <AddNewItemForm size={"small"} addItem={this.addTodoList}/>
-                    </div>
-                    <div className="containerList">
-                        {todoLists}
+            <div className="App">
+                <div className="headerAuth">
+                    <Header/>
+                </div>
+                <div className="containerList">
+                    {todoLists}
+                    <div className="containerAddTodo">
+                        { !this.state.editMode
+                            ? <Segment onClick={this.activateEditMode} className="addTodoList">Add Todo List</Segment>
+                            : <AddNewItemForm deactivateEditMode={this.deactivateEditMode} size={"small"} addItem={this.addTodoList}/>
+                        }
                     </div>
                 </div>
+            </div>
         );
     }
 }

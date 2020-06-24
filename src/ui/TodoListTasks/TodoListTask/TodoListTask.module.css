@@ -1,12 +1,34 @@
+.addTaskSegment {
+    padding: 3px 10px !important;
+}
+
 .todoListTask {
     display: flex;
     align-items: center;
     position: relative;
+    padding: 5px;
+}
+.list {
+    white-space: normal;
+}
+
+.listCard {
+    display: block;
+    max-width: 250px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
 }
 
 .task {
-    display: inline-block;
-    margin: 10px;
+    clear: both;
+    display: block;
+    margin: 0 8px;
+    overflow: hidden;
+    text-decoration: none;
+    word-wrap: break-word;
+    color: #172b4d;
 }
 
 .todoListTask input {
