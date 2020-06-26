@@ -1,5 +1,12 @@
-.headerAuth {
-    padding: 10px 35px;
-    height: 40px;
-    width: 100%;
+.headerTitle {
+    font-size: 20px;
+    color: #D3D5D3;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.headerLogo {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
 }

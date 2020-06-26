@@ -28,6 +28,7 @@ class TodoListTitle extends React.Component {
                              value={this.state.title}
                              error={errorTitleTodoList}
                              onKeyPress={ this.onKeyPress }
+                             size='mini'
                     />
                 }
             </>
@@ -51,7 +52,7 @@ class TodoListTitle extends React.Component {
         if (this.state.title === "") {
             this.setState({ error: true })
         } else {
-            this.setState({editMode: false, title: ""});
+            this.setState({editMode: false});
             this.props.updateTodoListTitle(this.props.id, this.state.title);
         }
     };

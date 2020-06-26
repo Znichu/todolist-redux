@@ -2,22 +2,14 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background-color: #4BBF6B;
+    background-color: #7c9a92;
     min-height: 100vh;
-}
-.addTodoList {
-    background: hsla(0, 0%, 100%, 0.32) !important;
-    color: #eeffee !important;
-    height: 40px;
-    cursor: pointer;
-}
-.addTodoList:hover {
-    background-color: #2185d0 !important;
 }
 .headerAuth {
     display: flex;
     justify-content: center;
-    background-color: #40A35B;
+    align-items: center;
+    background-color: #536d6c;
     height: 40px;
     text-align: center;
     color: #eeffee;
@@ -25,7 +17,7 @@
 
 .containerAddTodo {
     width: 300px;
-    margin: 5px 5px;
+    margin: 10px 5px;
 }
 .containerList {
     display: flex;
@@ -33,16 +25,6 @@
     justify-content: flex-start;
     align-items: flex-start;
 }
-
-i.icon {
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-i.icon:hover {
-    opacity: 0.9;
-}
-
 .ui.buttons {
     margin: 0 10px 0 0;
 }

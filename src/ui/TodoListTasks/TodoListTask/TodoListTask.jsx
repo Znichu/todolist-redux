@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../../App.css';
 import SelectPriority from "../../../components/SelectPriority/SelectPriority";
-import {Checkbox, Icon, Segment} from "semantic-ui-react";
-import PopupButtons from "../../../components/PopupDelete/PopupButtons";
+import {Checkbox, Segment} from "semantic-ui-react";
 import style from "./TodoListTask.module.css"
 import classNames from 'classnames'
+import TaskMenu from "../../../components/MenuForTask/TaskMenu";
 
 
 class TodoListTask extends React.Component {
@@ -16,7 +16,6 @@ class TodoListTask extends React.Component {
 
     render = () => {
         let color = this.props.task.status === 2 ? "green" : "blue";
-        let textStyle = this.props.task.status === 2 ? style.complete : null;
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
         return (
@@ -35,10 +34,7 @@ class TodoListTask extends React.Component {
                         }
                     </div>
                     <div className={style.editBlock}>
-                        { this.props.task.status !== 2 &&
-                        <Icon onClick={this.activateEditMode} name='edit outline' color='green'/>
-                        }
-                        <PopupButtons onDeleteTask={this.onDeleteTask}/>
+                        <TaskMenu onDeleteTask={this.onDeleteTask} activateEditMode={this.activateEditMode} />
                     </div>
                 </div>
             </Segment>

@@ -10,7 +10,6 @@ import {Segment} from "semantic-ui-react";
 import Header from "./ui/Header/Header";
 
 
-
 class App extends React.Component {
 
     state = {
@@ -50,14 +49,26 @@ class App extends React.Component {
         return (
             <div className="App">
                 <div className="headerAuth">
-                    <Header/>
+                    <Header logout={this.props.logout} userName={this.props.userName}/>
                 </div>
                 <div className="containerList">
                     {todoLists}
                     <div className="containerAddTodo">
-                        { !this.state.editMode
-                            ? <Segment onClick={this.activateEditMode} className="addTodoList">Add Todo List</Segment>
-                            : <AddNewItemForm deactivateEditMode={this.deactivateEditMode} size={"small"} addItem={this.addTodoList}/>
+                        {!this.state.editMode
+                            ? <Segment
+                                onClick={this.activateEditMode}
+                                size="small"
+                                inverted
+                                color="blue">
+                                Add Todo List
+                            </Segment>
+                            : <AddNewItemForm
+                                autoFocus={true}
+                                onBlur={this.deactivateEditMode}
+                                deactivateEditMode={this.deactivateEditMode}
+                                size={"small"}
+                                addItem={this.addTodoList}
+                            />
                         }
                     </div>
                 </div>

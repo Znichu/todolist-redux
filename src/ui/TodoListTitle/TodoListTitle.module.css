@@ -1,7 +1,6 @@
-
 .todoListHeader__title h3 {
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
-    margin-bottom: 5px;
+    color: #2185d0;
 }
 

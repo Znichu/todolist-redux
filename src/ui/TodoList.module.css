@@ -1,11 +1,18 @@
 .todoList {
     position: relative;
     width: 300px;
-    margin: 5px 5px;
+    margin: 10px 10px 5px;
     box-sizing: border-box;
 }
+
+.cardList {
+    background-color: #EBECF0 !important;
+}
+
 .todoListHeader {
     text-align: center;
+    margin: 8px 5px;
+    height: 33px;
 }
 
 .addTaskSegment {
@@ -21,6 +28,7 @@
 .todoList > div {
     padding: 10px;
 }
+
 .editBlock {
     margin: 10px 0;
     height: 50px;

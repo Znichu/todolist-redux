@@ -48,6 +48,7 @@ class AddNewItemForm extends React.Component {
                        className={classNameForInput}
                        autoFocus={this.props.autoFocus}
                        onBlur={this.props.onBlur}
+                       icon='plus'
                 />
         );
     }

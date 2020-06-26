@@ -1,12 +1,12 @@
 import React from 'react';
 import style from "./TodoList.module.css"
 import TodoListTasks from "./TodoListTasks/TodoListTasks";
-import TodoListFooter from "./TodoListFooter/TodoListFooter";
 import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
-import {Icon, Segment} from "semantic-ui-react";
+import {Segment} from "semantic-ui-react";
+import TodoListMenu from "../components/MenuForTodoList/TodoListMenu";
 
 class TodoList extends React.Component {
 
@@ -62,13 +62,15 @@ class TodoList extends React.Component {
         let {tasks = []} = this.props;
         return (
             <div className={style.todoList}>
-                <Segment stacked>
+                <Segment className={style.cardList} stacked>
                     <div className={style.todoListDelete}>
-                        <Icon onClick={this.deleteTodoList} name={"window close"} color={"red"}/>
+                        <TodoListMenu
+                            changeFilterValue={this.changeFilterValue}
+                            deleteTodoList={this.deleteTodoList}
+                        />
                     </div>
                     <div className={style.todoListHeader}>
                         <TodoListTitle title={this.props.title}
-                                       onDelete={this.deleteTodoList}
                                        id={this.props.id}
                         />
                     </div>
@@ -89,15 +91,16 @@ class TodoList extends React.Component {
                     />
                     <div className={style.editBlock}>
                         {!this.state.editMode
-                            ?  <Segment onClick={this.activateEditMode} size="small" inverted color="blue">Add task</Segment>
-                            : <AddNewItemForm deactivateEditMode={this.deactivateEditMode}
-                                              onBlur={this.deactivateEditMode}
-                                              autoFocus={true}
-                                              size={"mini"}
-                                              addItem={this.addTask}/>
+                            ? <Segment onClick={this.activateEditMode} size="small" inverted color="blue">Add
+                                task</Segment>
+                            : <AddNewItemForm
+                                deactivateEditMode={this.deactivateEditMode}
+                                onBlur={this.deactivateEditMode}
+                                autoFocus={true}
+                                size={"mini"}
+                                addItem={this.addTask}/>
                         }
                     </div>
-                    {/*<TodoListFooter changeFilterValue={this.changeFilterValue} filterValue={this.props.filterValue}/>*/}
                 </Segment>
             </div>
         );
