@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import {Input} from "semantic-ui-react";
+import {Icon, Input} from "semantic-ui-react";
 
 class AddNewItemForm extends React.Component {
     state = {
@@ -38,6 +38,7 @@ class AddNewItemForm extends React.Component {
 
     render = () => {
         let classNameForInput = this.state.error ? "error" : null;
+        const inputIcon = <Icon inverted color='grey' rotated='clockwise' name='level down alternate' />;
 
         return (
                 <Input fluid size={this.props.size}
@@ -48,7 +49,7 @@ class AddNewItemForm extends React.Component {
                        className={classNameForInput}
                        autoFocus={this.props.autoFocus}
                        onBlur={this.props.onBlur}
-                       icon='add'
+                       icon={inputIcon}
                 />
         );
     }

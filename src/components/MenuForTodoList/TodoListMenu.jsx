@@ -1,15 +1,16 @@
 import React from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import {Dropdown, Icon} from 'semantic-ui-react'
 
 const TodoListMenu = (props) => {
 
     const onAllFilter = () => { props.changeFilterValue("All") };
     const onCompletedFilter = () => { props.changeFilterValue("Completed") };
     const onActiveFilter = () => { props.changeFilterValue("Active") };
+    const dIcon = <Icon name='bars' color='grey'/>
 
     return (
         <Dropdown
-            icon='ellipsis vertical'
+            icon={dIcon}
             floating
             labeled
 

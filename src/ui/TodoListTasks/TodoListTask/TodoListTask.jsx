@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../App.css';
 import SelectPriority from "../../../components/SelectPriority/SelectPriority";
-import {Checkbox, Segment} from "semantic-ui-react";
+import {Checkbox, Message, Segment} from "semantic-ui-react";
 import style from "./TodoListTask.module.css"
 import classNames from 'classnames'
 import TaskMenu from "../../../components/MenuForTask/TaskMenu";
@@ -19,7 +19,9 @@ class TodoListTask extends React.Component {
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
         return (
+            <Message floating>
                 <div className={style.todoListTask}>
+
                         <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged} />
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
@@ -35,7 +37,9 @@ class TodoListTask extends React.Component {
                     <div className={style.editBlock}>
                         <TaskMenu onDeleteTask={this.onDeleteTask} activateEditMode={this.activateEditMode} />
                     </div>
+
                 </div>
+            </Message>
         );
     };
 

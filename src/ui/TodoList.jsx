@@ -7,7 +7,6 @@ import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
 import {Segment} from "semantic-ui-react";
 import TodoListMenu from "../components/MenuForTodoList/TodoListMenu";
-import {getFilteredTask} from "../redux/selectors";
 
 class TodoList extends React.Component {
 
@@ -107,10 +106,10 @@ class TodoList extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({
+/*let mapStateToProps = (state) => ({
     filteredTasks: getFilteredTask(state)
-})
+})*/
 
 
-export default connect(mapStateToProps, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue, getTasks})(TodoList);
+export default connect(null, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue, getTasks})(TodoList);
 
