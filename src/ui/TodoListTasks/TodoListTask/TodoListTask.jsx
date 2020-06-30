@@ -19,9 +19,8 @@ class TodoListTask extends React.Component {
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
         return (
-            <Segment className={style.addTaskSegment} raised color={color} size={"small"}>
                 <div className={style.todoListTask}>
-                        <Checkbox checked={status} onChange={this.onIsDoneChanged} />
+                        <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged} />
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
                                      value={this.state.title}/>
@@ -37,8 +36,6 @@ class TodoListTask extends React.Component {
                         <TaskMenu onDeleteTask={this.onDeleteTask} activateEditMode={this.activateEditMode} />
                     </div>
                 </div>
-            </Segment>
-
         );
     };
 

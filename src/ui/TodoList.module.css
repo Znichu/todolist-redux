@@ -1,18 +1,24 @@
 .todoList {
     position: relative;
-    width: 300px;
+    width: 350px;
     margin: 10px 10px 5px;
     box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 3px;
 }
 
 .cardList {
-    background-color: #EBECF0 !important;
+    background-color: #2185d0 !important;
 }
 
 .todoListHeader {
+    background-image: url(../assets/img/3156482.jpg);
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    border-radius: 3px;
     text-align: center;
-    margin: 8px 5px;
-    height: 33px;
+    height: 75px;
 }
 
 .addTaskSegment {

@@ -9,10 +9,10 @@ const TodoListMenu = (props) => {
 
     return (
         <Dropdown
-            icon='bars'
+            icon='ellipsis vertical'
             floating
             labeled
-            className='icon'
+
         >
             <Dropdown.Menu>
                 <Dropdown.Header icon='filter' content='Filter task' />

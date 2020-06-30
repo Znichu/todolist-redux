@@ -33,9 +33,7 @@ class App extends React.Component {
 
 
     render = () => {
-        const todoLists = this.props
-            .todoLists
-            .map(tl => <TodoList key={tl.id}
+        const todoLists = this.props.todoLists.map(tl => <TodoList key={tl.id}
                                  id={tl.id}
                                  title={tl.title}
                                  tasks={tl.tasks}
@@ -46,6 +44,7 @@ class App extends React.Component {
         if (!this.props.isAuth) {
             return <LoginForm login={this.props.login}/>
         }
+        console.log(todoLists);
         return (
             <div className="App">
                 <div className="headerAuth">

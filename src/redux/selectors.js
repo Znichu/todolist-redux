@@ -1,20 +1,19 @@
-/*
-import { createSelector } from 'reselect'
+import { createSelector } from 'reselect';
 
-export const getFilterValue = state => state.app.todoLists.map(fv => fv.filterValue);
-export const getTodoLists = state => state.app.todoLists;
-export const getTasks = state => state.app.todoLists.tasks;
+export const getTask = (state) => state.app.todoLists;
 
-export const getVisibleTask = createSelector(
-    [ getFilterValue, getTasks ],
-    (filterValue, tasks) => {
-        switch (filterValue) {
-            case "Active":
-                return tasks.filter(t => t.isDone);
-            case "Completed":
-                return tasks.filter(t => !t.isDone);
-            default:
-                return tasks
-        }
+export const getFilterValue = (state) => state.app.todoLists.map(t => t.filterValue);
+
+export const getFilteredTask = createSelector(getTask, getFilterValue, (task, filterValue) => {
+    console.log(task);
+    console.log(filterValue[0]);
+    switch (filterValue[0]) {
+        case 'Completed':
+            return task.filter(t => t.status === 2);
+        case 'Active':
+            return task.filter(t => t.status === 0);
+
+        default:
+            return task;
     }
-);*/
+});
