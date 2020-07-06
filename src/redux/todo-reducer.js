@@ -1,14 +1,14 @@
 import {todoListAPI} from "../api/api";
 
-const ADD_TODOLIST = "ADD_TODOLIST";
-const DELETE_TODOLIST = "DELETE-TODOLIST";
-const DELETE_TASK = "DELETE_TASK";
-const ADD_TASK = "ADD_TASK";
-const UPDATE_TASK = "UPDATE_TASK";
-const UPDATE_TODO_LIST_TITLE = "UPDATE_TODO_LIST_TITLE";
-const CHANGE_FILTER = "CHANGE_FILTER";
-const SET_TODO_LISTS = "SET_TODO_LISTS";
-const SET_TASKS = "SET_TASKS";
+const ADD_TODOLIST = "TodoList/ADD_TODOLIST";
+const DELETE_TODOLIST = "TodoList/DELETE-TODOLIST";
+const DELETE_TASK = "Task/DELETE_TASK";
+const ADD_TASK = "Task/ADD_TASK";
+const UPDATE_TASK = "Task/UPDATE_TASK";
+const UPDATE_TODO_LIST_TITLE = "TodoList/UPDATE_TODO_LIST_TITLE";
+const CHANGE_FILTER = "TodoList/CHANGE_FILTER";
+const SET_TODO_LISTS = "TodoList/SET_TODO_LISTS";
+const SET_TASKS = "Task/SET_TASKS";
 
 const initialState = {
     todoLists: []

@@ -1,8 +1,8 @@
 import {todoListAPI} from "../api/api";
 import {getTodoLists} from "./todo-reducer";
 
-const SET_AUTH_DATA = "App/TodoList/SET_AUTH_DATA";
-const INITIALIZED_SUCCESSES = "App/TodoList/INITIALIZED_SUCCESSES";
+const SET_AUTH_DATA = "App/SET_AUTH_DATA";
+const INITIALIZED_SUCCESSES = "App/INITIALIZED_SUCCESSES";
 
 
 let initialState = {

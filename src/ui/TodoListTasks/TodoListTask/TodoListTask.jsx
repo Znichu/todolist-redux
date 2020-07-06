@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../../App.css';
-import SelectPriority from "../../../components/SelectPriority/SelectPriority";
-import {Checkbox, Message, Segment} from "semantic-ui-react";
+import {Checkbox, Popup, Segment} from "semantic-ui-react";
 import style from "./TodoListTask.module.css"
 import classNames from 'classnames'
 import TaskMenu from "../../../components/MenuForTask/TaskMenu";
+import {formatDate} from "../../../utils/FormateDate";
 
 
 class TodoListTask extends React.Component {
@@ -15,31 +15,39 @@ class TodoListTask extends React.Component {
     };
 
     render = () => {
-        let color = this.props.task.status === 2 ? "green" : "blue";
+
+        let color = classNames({
+            'green': this.props.task.priority === 0,
+            'yellow': this.props.task.priority === 1,
+            'orange': this.props.task.priority === 2,
+            'red': this.props.task.priority === 3,
+            'blue': this.props.task.priority === 4,
+            'grey': this.props.task.status === 2,
+        });
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
+        let formatTaskDate = formatDate(this.props.task.addedDate);
         return (
-            <Message floating>
+            <Segment className={style.taskSegment} color={color}>
                 <div className={style.todoListTask}>
-
                         <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged} />
                         {this.state.editMode
                             ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
                                      value={this.state.title}/>
-                            : <div  className={taskItem}><span className={style.task}>{this.props.task.title}</span> </div>
+                            : <Popup
+                                trigger={ <div  className={taskItem}><span className={style.task}>{this.props.task.title}</span> </div> }
+                                content={"Added: " + formatTaskDate }
+                                position='bottom center'
+                            />
 
                         }
-                    <div className={style.priority}>
-                        { this.props.task.status !== 2 &&
-                        <SelectPriority onChange={this.onPriorityChanged} defaultValue={this.props.task.priority}/>
-                        }
-                    </div>
+
                     <div className={style.editBlock}>
-                        <TaskMenu onDeleteTask={this.onDeleteTask} activateEditMode={this.activateEditMode} />
+                        <TaskMenu onChange={this.onPriorityChanged} onDeleteTask={this.onDeleteTask} activateEditMode={this.activateEditMode} />
                     </div>
 
                 </div>
-            </Message>
+            </Segment>
         );
     };
 
@@ -51,7 +59,7 @@ class TodoListTask extends React.Component {
     onTitleChanged = (e) => {
         this.setState({title: e.currentTarget.value});
     };
-    onPriorityChanged = (e, {value}) => {
+    onPriorityChanged = (value) => {
         this.props.changePriority(this.props.task.id, this.props.task, value)
     };
 

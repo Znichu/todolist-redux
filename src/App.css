@@ -3,16 +3,14 @@
     flex-direction: column;
     justify-content: flex-start;
     min-height: 100vh;
-    background: #EB3349;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #F45C43, #EB3349);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #F45C43, #EB3349); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-color: #2a9d8f;
 
 }
 .headerAuth {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #536d6c;
+    background-color: #264653;
     height: 40px;
     text-align: center;
     color: #eeffee;
