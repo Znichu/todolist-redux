@@ -2,7 +2,12 @@ import React from "react"
 import {Dropdown, Image} from "semantic-ui-react";
 import style from './MyAccount.module.css'
 
-const MyAccount = (props) => {
+type Props = {
+    userName: string | null
+    logout: () => void
+}
+
+const MyAccount: React.FC<Props> = (props: Props) => {
 
     const trigger = (
         <span>

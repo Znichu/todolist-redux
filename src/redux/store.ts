@@ -9,8 +9,11 @@ const rootReducer = combineReducers({
     auth: AuthReducer,
 });
 
+type RootReducer = typeof rootReducer
+export type RootAppState = ReturnType<RootReducer>
+
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;
 
-let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+export let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
-export default store;

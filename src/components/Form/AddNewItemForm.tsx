@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import '../../App.css';
 import {Icon, Input} from "semantic-ui-react";
 
-class AddNewItemForm extends React.Component {
+type State = {
+    error: boolean
+    title: string
+}
+
+type Props = {
+    size: "big" | "small" | "mini" | "large" | "huge" | "massive" | undefined
+    autoFocus: boolean
+    onBlur: () => void
+    addItem: (text : string) => void
+    deactivateEditMode: () => void
+}
+
+class AddNewItemForm extends React.Component<Props, State> {
     state = {
         error: false,
         title: ""
@@ -22,14 +35,14 @@ class AddNewItemForm extends React.Component {
         }
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             error: false,
             title: e.currentTarget.value
         });
     };
 
-    onKeyPress = (e) => {
+    onKeyPress = (e: KeyboardEvent) => {
         if (e.key === "Enter") {
             this.onAddItemClick();
         }
@@ -37,7 +50,6 @@ class AddNewItemForm extends React.Component {
 
 
     render = () => {
-        let classNameForInput = this.state.error ? "error" : null;
         const inputIcon = <Icon inverted color='grey' rotated='clockwise' name='level down alternate' />;
 
         return (
@@ -46,7 +58,7 @@ class AddNewItemForm extends React.Component {
                        value={this.state.title}
                        onChange={this.onTitleChanged}
                        onKeyPress={this.onKeyPress}
-                       className={classNameForInput}
+                       error={this.state.error}
                        autoFocus={this.props.autoFocus}
                        onBlur={this.props.onBlur}
                        icon={inputIcon}

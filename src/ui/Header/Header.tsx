@@ -3,7 +3,12 @@ import MyAccount from "../../components/MyAccount/MyAccount";
 import style from './Header.module.css'
 import headerLogo from '../../assets/img/unnamed.png'
 
-const Header = (props) => {
+type Props = {
+    userName: string | null
+    logout: () => void
+}
+
+const Header: React.FC<Props> = (props: Props) => {
     return (
         <>
             <img className={style.headerLogo} src={headerLogo} alt=""/>

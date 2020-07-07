@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {ChangeEvent, FormEvent} from 'react';
 import '../../../App.css';
-import {Checkbox, Popup, Segment} from "semantic-ui-react";
+import {Checkbox, CheckboxProps, Popup, Segment} from "semantic-ui-react";
 import style from "./TodoListTask.module.css"
 import classNames from 'classnames'
 import TaskMenu from "../../../components/MenuForTask/TaskMenu";
 import {formatDate} from "../../../utils/FormateDate";
+import {TaskType} from "../../../types/types";
 
 
-class TodoListTask extends React.Component {
+type State = {
+    editMode: boolean
+    title: string
+}
+type OwnProps = {
+    task: TaskType
+    changePriority: (taskId: string, task: TaskType, priority: number) => void
+    changeStatus: (taskId: string, task: TaskType, status: number) => void
+    changeTitle: (taskId: string, task: TaskType, title: string) => void
+    deleteTask: (taskId: string) => void
+}
+
+class TodoListTask extends React.Component<OwnProps, State> {
 
     state = {
         editMode: false,
@@ -15,8 +28,9 @@ class TodoListTask extends React.Component {
     };
 
     render = () => {
-
-        let color = classNames({
+         let color:  'red' | 'orange' | 'yellow' | 'green' | 'blue' |'grey';
+        // @ts-ignore
+        color = classNames({
             'green': this.props.task.priority === 0,
             'yellow': this.props.task.priority === 1,
             'orange': this.props.task.priority === 2,
@@ -27,6 +41,7 @@ class TodoListTask extends React.Component {
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
         let formatTaskDate = formatDate(this.props.task.addedDate);
+
         return (
             <Segment className={style.taskSegment} color={color}>
                 <div className={style.todoListTask}>
@@ -51,15 +66,15 @@ class TodoListTask extends React.Component {
         );
     };
 
-    onIsDoneChanged = (e, {checked}) => {
+    onIsDoneChanged = (e: FormEvent<HTMLInputElement>, {checked}: CheckboxProps) => {
         let status = checked ? 2 : 0;
         this.props.changeStatus(this.props.task.id, this.props.task, status);
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value});
     };
-    onPriorityChanged = (value) => {
+    onPriorityChanged = (value: number) => {
         this.props.changePriority(this.props.task.id, this.props.task, value)
     };
 

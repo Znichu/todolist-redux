@@ -5,41 +5,66 @@ import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
-import {Button, Segment} from "semantic-ui-react";
+import {Segment} from "semantic-ui-react";
 import TodoListMenu from "../components/MenuForTodoList/TodoListMenu";
+import {ObjType, TaskType} from "../types/types";
+import {RootAppState} from "../redux/store";
 
-class TodoList extends React.Component {
+type State = {
+    editMode: boolean
+}
 
-    state = {
-        editMode: false
+type MapDispatchProps = {
+    addTask: (title: string, todoListId: string) => void
+    deleteTodoList: (todoListId: string) => void
+    deleteTask: (todoListId: string, taskId: string) => void
+    updateTask: (todoListId: string, taskId: string, newTask: TaskType) => void
+    changeFilterValue: (todoListId: string, filterValue: string) => void
+    getTasks: (todoListId: string) => void
+}
+
+type OwnProps = {
+    tasks: Array<TaskType>
+    title: string
+    id: string
+    filterValue: string
+}
+
+type Props = MapDispatchProps & OwnProps
+
+
+class TodoList extends React.Component<Props, State> {
+
+    state: State = {
+        editMode: false,
     };
 
     componentDidMount() {
-        this.props.getTasks(this.props.id)
+        this.props.getTasks(this.props.id )
     }
 
-    addTask = (newText) => {
+    addTask = (newText: string) => {
         this.props.addTask(newText, this.props.id)
     };
 
-    changeTask = (taskId, task, obj) => {
+    changeTask = (taskId: string, task: TaskType, obj: ObjType) => {
         let newTask = {...task, ...obj};
         this.props.updateTask(this.props.id, taskId, newTask)
     };
 
-    changeStatus = (taskId, task, status) => {
+    changeStatus = (taskId: string, task: TaskType, status: number) => {
         this.changeTask(taskId, task, {status: status})
     };
 
-    changeTitle = (taskId, task, title) => {
+    changeTitle = (taskId: string, task: TaskType, title: string) => {
         this.changeTask(taskId, task, {title: title})
     };
 
-    changePriority = (taskId, task, priority) => {
+    changePriority = (taskId: string, task: TaskType, priority: number) => {
         this.changeTask(taskId, task, {priority: priority})
     };
 
-    changeFilterValue = (filterValue) => {
+    changeFilterValue = (filterValue: string) => {
         this.props.changeFilterValue(this.props.id, filterValue)
     };
 
@@ -47,7 +72,7 @@ class TodoList extends React.Component {
         this.props.deleteTodoList(this.props.id)
     };
 
-    deleteTask = (taskId) => {
+    deleteTask = (taskId: string) => {
         this.props.deleteTask(this.props.id, taskId)
     };
     activateEditMode = () => {
@@ -113,5 +138,5 @@ class TodoList extends React.Component {
 })*/
 
 
-export default connect(null, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue, getTasks})(TodoList);
+export default connect<{}, MapDispatchProps, OwnProps, RootAppState>(null, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue, getTasks})(TodoList);
 

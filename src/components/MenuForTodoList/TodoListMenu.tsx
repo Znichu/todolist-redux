@@ -1,15 +1,21 @@
 import React, {useState} from 'react'
-import {Dropdown, Icon} from 'semantic-ui-react'
+import {Dropdown, Icon, SemanticICONS} from 'semantic-ui-react'
 import style from './TodoListMenu.module.css'
 
-const TodoListMenu = (props) => {
+type Props = {
+    changeFilterValue: (filterValue: string) => void
+    deleteTodoList: () => void
+}
 
-    let [rotated, setRotated] = useState(false);
+const TodoListMenu: React.FC<Props> = (props: Props) => {
+
+    let [rotated, setRotated] = useState<boolean>(false);
 
     const onAllFilter = () => { props.changeFilterValue("All") };
     const onCompletedFilter = () => { props.changeFilterValue("Completed") };
     const onActiveFilter = () => { props.changeFilterValue("Active") };
-    const changeRotated = !rotated ? 'bars' : 'clockwise rotated bars';
+    // @ts-ignore
+    let changeRotated: SemanticICONS = !rotated ? "bars" : "clockwise rotated" + "bars";
 
     return (
         <Dropdown
@@ -41,7 +47,7 @@ const TodoListMenu = (props) => {
                 <Dropdown.Divider />
                 <Dropdown.Item
                     icon='trash'
-                    text='Delete Todo List'
+                    text='Remove todo list'
                     onClick={props.deleteTodoList}
                 />
             </Dropdown.Menu>

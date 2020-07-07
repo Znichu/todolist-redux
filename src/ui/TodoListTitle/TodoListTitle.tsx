@@ -1,19 +1,33 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import style from "./TodoListTitle.module.css";
 import {Input} from "semantic-ui-react";
 import {connect} from "react-redux";
 import {updateTodoListTitle} from "../../redux/todo-reducer";
 
-class TodoListTitle extends React.Component {
-    state = {
+type State = {
+    editMode: boolean
+    title: string
+    error: boolean
+}
+type MapDispatchProps = {
+    updateTodoListTitle: (todoListId: string, title: string) => void
+}
+
+type OwnProps = {
+    title: string
+    id: string
+}
+type Props = MapDispatchProps & OwnProps
+
+
+class TodoListTitle extends React.Component<Props, State> {
+    state: State = {
         editMode: false,
         title: this.props.title,
         error: false
     };
 
     render = () => {
-
-        let errorTitleTodoList = this.state.error ? "error" : null;
 
         return (
             <>
@@ -26,7 +40,7 @@ class TodoListTitle extends React.Component {
                              onBlur={this.deactivateEditMode}
                              autoFocus={true}
                              value={this.state.title}
-                             error={errorTitleTodoList}
+                             error={this.state.error}
                              onKeyPress={ this.onKeyPress }
                              size='mini'
                     />
@@ -35,13 +49,13 @@ class TodoListTitle extends React.Component {
         );
     };
 
-    onKeyPress = (e) => {
+    onKeyPress = (e: React.KeyboardEvent<HTMLInputElement> ) => {
         if (e.key === "Enter") {
             this.deactivateEditMode();
         }
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value});
     };
     activateEditMode = () => {

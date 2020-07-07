@@ -1,4 +1,7 @@
 import {todoListAPI} from "../api/api";
+import {TaskType, TodoListType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {RootAppState} from "./store";
 
 const ADD_TODOLIST = "TodoList/ADD_TODOLIST";
 const DELETE_TODOLIST = "TodoList/DELETE-TODOLIST";
@@ -9,12 +12,16 @@ const UPDATE_TODO_LIST_TITLE = "TodoList/UPDATE_TODO_LIST_TITLE";
 const CHANGE_FILTER = "TodoList/CHANGE_FILTER";
 const SET_TODO_LISTS = "TodoList/SET_TODO_LISTS";
 const SET_TASKS = "Task/SET_TASKS";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 const initialState = {
-    todoLists: []
+    todoLists: [] as Array<TodoListType>,
+    isFetching: false
 };
 
-const AppReducer = (state = initialState, action) => {
+type InitialState = typeof initialState
+
+const AppReducer = (state: InitialState = initialState, action: ActionsType): InitialState => {
 
     switch (action.type) {
         case SET_TODO_LISTS: {
@@ -122,41 +129,112 @@ const AppReducer = (state = initialState, action) => {
                 })
             }
         }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default:
             return state;
     }
 };
 
-export const setTodoLists = (todoLists) => ({type: SET_TODO_LISTS, todoLists});
-export const setTasks = (todoListId, tasks) => ({type: SET_TASKS, todoListId, tasks});
-export const appendTodoList = (todoList) => ({type: ADD_TODOLIST, todoList});
-export const appendTask = (task, todoListId) => ({type: ADD_TASK, task, todoListId});
-export const removeTodoList = (todoListId) => ({type: DELETE_TODOLIST, todoListId});
-export const removeTask = (todoListId, taskId) => ({type: DELETE_TASK, todoListId, taskId});
-export const changeTask = (todoListId, taskId, newTask) => ({type: UPDATE_TASK, todoListId, taskId, newTask});
-export const changeFilterValue = (todoListId, filterValue) => ({type: CHANGE_FILTER, todoListId, filterValue});
-export const changeTodoListTitle = (todoListId, title) => ({ type: UPDATE_TODO_LIST_TITLE, todoListId, title });
+type ActionsType = SetTodoListsType | SetTasksType | AppendTodoList | AppendTask | RemoveTodoList | RemoveTask |
+    ChangeTask | ChangeFilterValue | ChangeTodoListTitle | ToggleIsFetchingActionType
 
-export const getTodoLists = () => {
+type SetTodoListsType = {
+    type: typeof SET_TODO_LISTS
+    todoLists: Array<TodoListType>
+}
+export const setTodoLists = (todoLists: Array<TodoListType>): SetTodoListsType => ({type: SET_TODO_LISTS, todoLists});
+
+type SetTasksType = {
+    type: typeof SET_TASKS
+    todoListId: string
+    tasks: Array<TaskType>
+
+}
+export const setTasks = (todoListId: string, tasks: Array<TaskType>): SetTasksType => ({type: SET_TASKS, todoListId, tasks});
+
+type AppendTodoList = {
+    type: typeof ADD_TODOLIST
+    todoList: TodoListType
+}
+export const appendTodoList = (todoList: TodoListType): AppendTodoList => ({type: ADD_TODOLIST, todoList});
+
+type AppendTask ={
+    type: typeof ADD_TASK
+    task: TaskType
+    todoListId: string
+}
+export const appendTask = (task: TaskType, todoListId: string): AppendTask => ({type: ADD_TASK, task, todoListId});
+
+type RemoveTodoList = {
+    type: typeof DELETE_TODOLIST
+    todoListId: string
+}
+export const removeTodoList = (todoListId: string): RemoveTodoList => ({type: DELETE_TODOLIST, todoListId});
+
+type RemoveTask = {
+    type: typeof DELETE_TASK
+    todoListId: string
+    taskId: string
+}
+export const removeTask = (todoListId: string, taskId: string): RemoveTask => ({type: DELETE_TASK, todoListId, taskId});
+
+type ChangeTask = {
+    type: typeof UPDATE_TASK
+    todoListId: string
+    taskId: string
+    newTask: TaskType
+}
+export const changeTask = (todoListId: string, taskId: string, newTask: TaskType): ChangeTask => ({type: UPDATE_TASK, todoListId, taskId, newTask});
+
+type ChangeFilterValue = {
+    type: typeof CHANGE_FILTER
+    todoListId: string
+    filterValue: string
+}
+export const changeFilterValue = (todoListId: string, filterValue: string): ChangeFilterValue => ({type: CHANGE_FILTER, todoListId, filterValue});
+
+type ChangeTodoListTitle = {
+    type: typeof UPDATE_TODO_LIST_TITLE
+    todoListId: string
+    title: string
+}
+export const changeTodoListTitle = (todoListId: string, title: string): ChangeTodoListTitle => ({ type: UPDATE_TODO_LIST_TITLE, todoListId, title });
+
+type ToggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+}
+const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({type: TOGGLE_IS_FETCHING, isFetching});
+
+type ThunkType = ThunkAction<void, RootAppState, unknown, ActionsType>
+
+export const getTodoLists = (): ThunkType => {
     return (dispatch) => {
+        dispatch(toggleIsFetching(true));
         todoListAPI.getTodoLists()
             .then(data => {
                 dispatch(setTodoLists(data))
             })
     }
 };
-export const getTasks = (todoListId) => {
+export const getTasks = (todoListId: string): ThunkType => {
     return (dispatch) => {
         todoListAPI.getTasks(todoListId)
             .then(data => {
                 if (data.error === null) {
-                    dispatch(setTasks(todoListId, data.items))
+                    dispatch(setTasks(todoListId, data.items));
+                    dispatch(toggleIsFetching(false));
                 }
             })
     }
 
 };
-export const addTodoList = (title) => {
+export const addTodoList = (title: string): ThunkType => {
     return (dispatch) => {
         todoListAPI.addTodoList(title)
             .then(data => {
@@ -166,7 +244,7 @@ export const addTodoList = (title) => {
             })
     }
 };
-export const addTask = (title, todoListId) => {
+export const addTask = (title: string, todoListId: string): ThunkType => {
     return (dispatch) => {
         todoListAPI.addTask(title, todoListId)
             .then(data => {
@@ -176,7 +254,7 @@ export const addTask = (title, todoListId) => {
             })
     }
 };
-export const deleteTodoList = (todoListId) => {
+export const deleteTodoList = (todoListId: string): ThunkType => {
     return (dispatch) => {
         todoListAPI.deleteTodoList(todoListId)
             .then(data => {
@@ -186,7 +264,7 @@ export const deleteTodoList = (todoListId) => {
             })
     }
 };
-export const deleteTask = (todoListId, taskId) => {
+export const deleteTask = (todoListId: string, taskId: string): ThunkType => {
     return (dispatch) => {
         todoListAPI.deleteTask(todoListId, taskId)
             .then(data => {
@@ -196,7 +274,7 @@ export const deleteTask = (todoListId, taskId) => {
             })
     }
 };
-export const updateTask = (todoListId, taskId, newTask) => {
+export const updateTask = (todoListId: string, taskId: string, newTask: TaskType): ThunkType => {
     return (dispatch) => {
         todoListAPI.updateTask(todoListId, taskId, newTask)
             .then(data => {
@@ -206,7 +284,7 @@ export const updateTask = (todoListId, taskId, newTask) => {
             })
     }
 };
-export const updateTodoListTitle = (todoListId, title) => {
+export const updateTodoListTitle = (todoListId: string, title: string): ThunkType => {
     return (dispatch) => {
         todoListAPI.updateTodoListTitle(todoListId, title)
             .then(data => {
@@ -214,7 +292,7 @@ export const updateTodoListTitle = (todoListId, title) => {
             })
 
     }
-}
+};
 
 
 export default AppReducer;

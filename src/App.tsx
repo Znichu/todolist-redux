@@ -8,11 +8,36 @@ import {initialized, login, logout, setAuth} from "./redux/app-reducer";
 import LoginForm from "./components/Form/LoginForm";
 import {Segment} from "semantic-ui-react";
 import Header from "./ui/Header/Header";
+import {RootAppState} from "./redux/store";
+import {TodoListType} from "./types/types";
 
 
-class App extends React.Component {
+type MapStateProps = {
+    todoLists: Array<TodoListType>
+    isAuth: boolean
+    userName: string | null
+    initialized: boolean
+    isFetching: boolean
+}
 
-    state = {
+type State = {
+    editMode: boolean
+}
+
+type MapDispatchProps = {
+    addTodoList: (title: string) => void
+    getTodoLists: () => void
+    initialized: () => void
+    setAuth: () => void
+    login: (email: string, password: string, rememberMe: boolean) => void
+    logout: () => void
+}
+
+type Props = MapStateProps & MapDispatchProps
+
+class App extends React.Component<Props, State> {
+
+    state: State = {
         editMode: false
     };
 
@@ -21,7 +46,7 @@ class App extends React.Component {
         this.props.getTodoLists();
     }
 
-    addTodoList = (title) => {
+    addTodoList = (title: string) => {
         this.props.addTodoList(title);
     };
     activateEditMode = () => {
@@ -34,17 +59,16 @@ class App extends React.Component {
 
     render = () => {
         const todoLists = this.props.todoLists.map(tl => <TodoList key={tl.id}
-                                 id={tl.id}
-                                 title={tl.title}
-                                 tasks={tl.tasks}
-                                 filterValue={tl.filterValue}
-            />);
+                                                                   id={tl.id}
+                                                                   title={tl.title}
+                                                                   tasks={tl.tasks}
+                                                                   filterValue={tl.filterValue}
+        />);
 
 
         if (!this.props.isAuth) {
             return <LoginForm login={this.props.login}/>
         }
-        console.log(todoLists);
         return (
             <div className="App">
                 <div className="headerAuth">
@@ -72,19 +96,28 @@ class App extends React.Component {
                     </div>
                 </div>
             </div>
+
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootAppState): MapStateProps => ({
     todoLists: state.app.todoLists,
     isAuth: state.auth.isAuth,
     userName: state.auth.login,
-    initialized: state.auth.initialized
+    initialized: state.auth.initialized,
+    isFetching: state.app.isFetching
 
 });
 
-const ConnectedApp = connect(mapStateToProps, {addTodoList, getTodoLists, initialized, setAuth, login, logout})(App);
+const ConnectedApp = connect<MapStateProps, MapDispatchProps, {}, RootAppState>(mapStateToProps, {
+    addTodoList,
+    getTodoLists,
+    initialized,
+    setAuth,
+    login,
+    logout
+})(App);
 
 
 export default ConnectedApp;
