@@ -78,13 +78,14 @@ class App extends React.Component<Props, State> {
                     {todoLists}
                     <div className="containerAddTodo">
                         {!this.state.editMode
-                            ? <Segment
-                                onClick={this.activateEditMode}
-                                size="small"
-                                inverted
-                                color="blue">
+                            ?
+/*                            <Segment
+                                onClick={this.activateEditMode}>
                                 Add Todo List
-                            </Segment>
+                            </Segment>*/
+                            <div onClick={this.activateEditMode} className="addTodoList">
+                                <span>Add todo list</span>
+                            </div>
                             : <AddNewItemForm
                                 autoFocus={true}
                                 onBlur={this.deactivateEditMode}

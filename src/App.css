@@ -26,6 +26,17 @@
     justify-content: flex-start;
     align-items: flex-start;
 }
+.addTodoList {
+    background-color: hsla(0,0%,100%,.24);
+    cursor: pointer;
+    height: auto;
+    min-height: 32px;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: center;
+    color: #ffffff;
+}
+
 .ui.buttons {
     margin: 0 10px 0 0;
 }
