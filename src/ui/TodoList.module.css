@@ -4,37 +4,45 @@
     margin: 10px 10px 5px;
     box-sizing: border-box;
     background-color: #ffffff;
-    border-radius: 3px;
+    border-radius: 4px;
 }
-
 .cardList {
     background-color: #2185d0 !important;
 }
-
 .todoListHeader {
     background-color: #264653;
     text-align: center;
-    height: 50px;
+    height: 45px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 8px;
 }
-
-.addTaskSegment {
-    padding: 3px 10px !important;
-}
-
 .todoListDelete {
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 10px;
+    left: 10px;
 }
-
-.todoList > div {
-    padding: 10px;
-}
-
 .editBlock {
-    margin: 10px 0;
-    height: 50px;
+    margin: 10px 8px;
+    height: 30px;
     display: flex;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
+    color: #5e6c84;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.editBlock:hover {
+    background-color:  #dfe1e6;
+}
+.addCard {
+    color: #5e6c84;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.iconAdd {
+    color: #5e6c84 !important;
+    margin-right: 8px !important;
 }

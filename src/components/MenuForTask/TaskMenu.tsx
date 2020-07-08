@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dropdown} from 'semantic-ui-react'
+import {Dropdown, Icon} from 'semantic-ui-react'
 import style from './TaskMenu.module.css'
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
 }
 
 const TaskMenu: React.FC<Props> = (props: Props) => {
+
+    const iconLink = <Icon name='ellipsis vertical' link/>;
 
     const edit = [
         { key: 'edit', value: 'edit', icon: 'edit', text: 'Edit Task', onClick: props.activateEditMode },
@@ -49,7 +51,7 @@ const TaskMenu: React.FC<Props> = (props: Props) => {
 
     return (
 
-        <Dropdown className={style.taskMenu} multiple icon='ellipsis vertical' floating trigger={<React.Fragment />}>
+        <Dropdown className={style.taskMenu} multiple icon={iconLink}  floating trigger={<React.Fragment />}>
             <Dropdown.Menu>
                 {edit.map(option =>
                     <Dropdown.Item {...option} />

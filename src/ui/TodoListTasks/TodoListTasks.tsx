@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../App.css';
 import TodoListTask from "./TodoListTask/TodoListTask";
 import {TaskType} from "../../types/types";
+import style from "./TodoListTasks.module.css"
 
 type Props = {
     tasks: Array<TaskType>
@@ -23,7 +23,7 @@ class TodoListTasks extends React.Component<Props> {
                                                                         />);
 
         return (
-            <div className="todoList-tasks">
+            <div className={style.todoListTasks}>
                 {tasksElements}
             </div>
         );

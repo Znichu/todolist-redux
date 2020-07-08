@@ -15,11 +15,11 @@ const TodoListMenu: React.FC<Props> = (props: Props) => {
     const onCompletedFilter = () => { props.changeFilterValue("Completed") };
     const onActiveFilter = () => { props.changeFilterValue("Active") };
     // @ts-ignore
-    let changeRotated: SemanticICONS = !rotated ? "bars" : "clockwise rotated" + "bars";
+    let changeRotated: SemanticICONS = !rotated ? "bars" : "clockwise rotated bars";
 
     return (
         <Dropdown
-            icon={<Icon name={ changeRotated } color='orange' className={style.todoListMenuIcon}/>}
+            icon={<Icon name={ changeRotated } color='grey' link className={style.todoListMenuIcon}/>}
             floating
             labeled
             onClick={ () => setRotated(true) }

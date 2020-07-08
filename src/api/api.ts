@@ -7,7 +7,7 @@ const instance = axios.create({
     headers: {"API-KEY": "6b2fd528-e763-4090-9008-f558677adae7"}
 });
 
-type CommonResponseType<T> = {
+type CommonResponseType<T = {}> = {
     resultCode: number
     messages: string[],
     data: T
@@ -40,11 +40,11 @@ export const todoListAPI = {
             .then(response => response.data)
     },
     deleteTodoList (todoListId: string) {
-        return instance.delete<CommonResponseType<{}>>("/todo-lists/" + todoListId)
+        return instance.delete<CommonResponseType>("/todo-lists/" + todoListId)
             .then(response => response.data)
     },
     deleteTask (todoListId: string, taskId: string) {
-        return instance.delete<CommonResponseType<{}>>(`/todo-lists/${todoListId}/tasks/${taskId}`)
+        return instance.delete<CommonResponseType>(`/todo-lists/${todoListId}/tasks/${taskId}`)
             .then(response => response.data)
     },
     updateTask (todoListId: string, taskId: string, newTask: TaskType) {
@@ -52,7 +52,7 @@ export const todoListAPI = {
             .then(response => response.data)
     },
     updateTodoListTitle (todoListId: string, title: string) {
-        return instance.put<CommonResponseType<{}>>(`/todo-lists/${todoListId}`, {title})
+        return instance.put<CommonResponseType>(`/todo-lists/${todoListId}`, {title})
             .then(response => response.data)
     },
     login (email: string, password: string, rememberMe: boolean = false) {
@@ -60,7 +60,7 @@ export const todoListAPI = {
             .then(response => response.data)
     },
     logout () {
-        return instance.delete<CommonResponseType<{}>>("/auth/login")
+        return instance.delete<CommonResponseType>("/auth/login")
             .then(response => response.data)
     },
 };
