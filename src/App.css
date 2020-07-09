@@ -35,6 +35,17 @@
     padding: 5px;
     text-align: center;
     color: #ffffff;
+    transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
+}
+.addTodoList:hover {
+    background-color: hsla(0,0%,100%,.34);
+}
+.addList {
+    cursor: pointer;
+}
+.iconAdd {
+    color: #ffffff !important;
+    margin-right: 8px !important;
 }
 
 .ui.buttons {

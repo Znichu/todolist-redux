@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {addTodoList, getTodoLists} from "./redux/todo-reducer";
 import {initialized, login, logout, setAuth} from "./redux/app-reducer";
 import LoginForm from "./components/Form/LoginForm";
-import {Segment} from "semantic-ui-react";
+import {Icon} from "semantic-ui-react";
 import Header from "./ui/Header/Header";
 import {RootAppState} from "./redux/store";
 import {TodoListType} from "./types/types";
@@ -79,12 +79,8 @@ class App extends React.Component<Props, State> {
                     <div className="containerAddTodo">
                         {!this.state.editMode
                             ?
-/*                            <Segment
-                                onClick={this.activateEditMode}>
-                                Add Todo List
-                            </Segment>*/
                             <div onClick={this.activateEditMode} className="addTodoList">
-                                <span>Add todo list</span>
+                                <span className="addList"> <Icon name='plus' className="iconAdd"/>Add todo list</span>
                             </div>
                             : <AddNewItemForm
                                 autoFocus={true}

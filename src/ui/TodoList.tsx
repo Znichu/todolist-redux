@@ -5,7 +5,7 @@ import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
 import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
-import {Icon, Segment} from "semantic-ui-react";
+import {Icon} from "semantic-ui-react";
 import TodoListMenu from "../components/MenuForTodoList/TodoListMenu";
 import {ObjType, TaskType} from "../types/types";
 import {RootAppState} from "../redux/store";
@@ -56,8 +56,8 @@ class TodoList extends React.Component<Props, State> {
         this.changeTask(taskId, task, {status: status})
     };
 
-    changeTitle = (taskId: string, task: TaskType, title: string) => {
-        this.changeTask(taskId, task, {title: title})
+    editTask = (taskId: string, task: TaskType, obj: ObjType) => {
+        this.changeTask(taskId, task, obj)
     };
 
     changePriority = (taskId: string, task: TaskType, priority: number) => {
@@ -85,7 +85,6 @@ class TodoList extends React.Component<Props, State> {
 
     render = () => {
         let {tasks = []} = this.props;
-        console.log(this.props);
         return (
             <div className={style.todoList}>
                     <div className={style.todoListDelete}>
@@ -100,7 +99,7 @@ class TodoList extends React.Component<Props, State> {
                         />
                     </div>
                     <TodoListTasks changeStatus={this.changeStatus}
-                                   changeTitle={this.changeTitle}
+                                   editTask={this.editTask}
                                    changePriority={this.changePriority}
                                    deleteTask={this.deleteTask}
                                    tasks={tasks.filter(t => {

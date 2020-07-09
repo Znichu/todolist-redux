@@ -1,8 +1,6 @@
 import React from "react"
 import MyAccount from "../../components/MyAccount/MyAccount";
 import style from './Header.module.css'
-import headerLogo from '../../assets/img/unnamed.png'
-import {Icon} from "semantic-ui-react";
 
 type Props = {
     userName: string | null

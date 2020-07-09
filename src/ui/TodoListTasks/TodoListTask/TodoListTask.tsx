@@ -5,7 +5,8 @@ import style from "./TodoListTask.module.css"
 import classNames from 'classnames'
 import TaskMenu from "../../../components/MenuForTask/TaskMenu";
 import {formatDate} from "../../../utils/FormateDate";
-import {TaskType} from "../../../types/types";
+import {ObjType, TaskType} from "../../../types/types";
+import {ModalEditTask} from "../../../components/ModalEditTask/ModalEditTask";
 
 
 type State = {
@@ -16,7 +17,7 @@ type OwnProps = {
     task: TaskType
     changePriority: (taskId: string, task: TaskType, priority: number) => void
     changeStatus: (taskId: string, task: TaskType, status: number) => void
-    changeTitle: (taskId: string, task: TaskType, title: string) => void
+    editTask: (taskId: string, task: TaskType, obj: ObjType) => void
     deleteTask: (taskId: string) => void
 }
 
@@ -47,9 +48,17 @@ class TodoListTask extends React.Component<OwnProps, State> {
                 <div className={style.todoListTask}>
                         <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged} />
                         {this.state.editMode
-                            ? <input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
-                                     value={this.state.title}/>
-                            : <Popup
+                            ? /*<input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
+                                     value={this.state.title}/>*/
+                            <ModalEditTask title={this.props.task.title}
+                                           description={this.props.task.description}
+                                           priority={this.props.task.priority}
+                                           open={this.state.editMode}
+                                           onClose={this.deactivateEditMode}
+                                           editTask={this.editTask}
+                            />
+                            :
+                            <Popup
                                 trigger={ <div  className={taskItem}><span className={style.task}>{this.props.task.title}</span> </div> }
                                 content={"Added: " + formatTaskDate }
                                 position='bottom center'
@@ -71,8 +80,8 @@ class TodoListTask extends React.Component<OwnProps, State> {
         this.props.changeStatus(this.props.task.id, this.props.task, status);
     };
 
-    onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({title: e.currentTarget.value});
+    editTask = (obj: ObjType) => {
+        this.props.editTask(this.props.task.id, this.props.task, obj)
     };
     onPriorityChanged = (value: number) => {
         this.props.changePriority(this.props.task.id, this.props.task, value)
@@ -84,7 +93,6 @@ class TodoListTask extends React.Component<OwnProps, State> {
 
     deactivateEditMode = () => {
         this.setState({editMode: false});
-        this.props.changeTitle(this.props.task.id, this.props.task, this.state.title);
     };
     onDeleteTask = () => {
         this.props.deleteTask(this.props.task.id);

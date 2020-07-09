@@ -32,6 +32,7 @@
     color: #5e6c84;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
 }
 .editBlock:hover {
     background-color:  #dfe1e6;

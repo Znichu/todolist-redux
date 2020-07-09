@@ -8,13 +8,13 @@ export type TodoListType = {
 }
 
 export type TaskType = {
-    description: string
+    description: string | null
     title: string
     completed: boolean
     status: number
     priority: number
-    startDate: string
-    deadline: string
+    startDate: string | null
+    deadline: string | null
     id: string
     todoListId: string
     order: number
@@ -31,4 +31,5 @@ export type ObjType = {
     status?: number
     title?: string
     priority?: number
+    description?: string
 }
