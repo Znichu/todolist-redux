@@ -38,8 +38,8 @@ const AuthReducer = (state: InitialStateType = initialState, action: ActionsType
                 initialized: true
 
             };
-            default:
-                return state
+        default:
+            return state
     }
 };
 
@@ -52,47 +52,44 @@ type SetAuthData = {
         isAuth: boolean
     }
 }
-const setAuthData = (id: string | null, login: string | null, email: string | null, isAuth: boolean): SetAuthData => ({ type: SET_AUTH_DATA, payload: { id, login, email, isAuth } });
+const setAuthData = (id: string | null, login: string | null, email: string | null, isAuth: boolean): SetAuthData => ({
+    type: SET_AUTH_DATA,
+    payload: {id, login, email, isAuth}
+});
 
 type InitializedSuccesses = {
     type: typeof INITIALIZED_SUCCESSES
 }
-const initializedSuccesses = (): InitializedSuccesses => ({ type: INITIALIZED_SUCCESSES });
+const initializedSuccesses = (): InitializedSuccesses => ({type: INITIALIZED_SUCCESSES});
 
 
 type ThunkType = ThunkAction<void, RootAppState, unknown, ActionsType>
-export const login = (email: string, password: string, rememberMe: boolean): ThunkType => (dispatch) => {
-    todoListAPI.login(email, password, rememberMe)
-        .then((data) => {
-            if (data.resultCode === 0) {
-                dispatch(setAuth());
-                dispatch(getTodoLists());
-            }
-        })
+export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async (dispatch) => {
+    let data = await todoListAPI.login(email, password, rememberMe)
+    if (data.resultCode === 0) {
+        dispatch(setAuth());
+        dispatch(getTodoLists());
+    }
 };
-export const logout = (): ThunkType => (dispatch) => {
-    todoListAPI.logout()
-        .then((data: { resultCode: number; }) => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthData(null, null, null, false))
-            }
-        })
+export const logout = (): ThunkType => async (dispatch) => {
+    let data = await todoListAPI.logout()
+    if (data.resultCode === 0) {
+        dispatch(setAuthData(null, null, null, false))
+    }
 };
 
-export const setAuth = (): ThunkType => (dispatch) => {
-    return todoListAPI.getAuth()
-        .then((data)  => {
-            if (data.resultCode === 0) {
-                let { id, login, email } = data.data;
-                dispatch(setAuthData(id, login, email, true))
-            }
-        })
+export const setAuth = (): ThunkType => async (dispatch) => {
+    let data = await todoListAPI.getAuth()
+    if (data.resultCode === 0) {
+        let {id, login, email} = data.data;
+        dispatch(setAuthData(id, login, email, true))
+    }
 };
 
 export const initialized = (): ThunkType => (dispatch) => {
     let promise = dispatch(setAuth());
     // @ts-ignore
-    promise.then( () => {
+    promise.then(() => {
         dispatch(initializedSuccesses());
     })
 

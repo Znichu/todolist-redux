@@ -32,4 +32,5 @@ export type ObjType = {
     title?: string
     priority?: number
     description?: string
+    startDate?: string
 }

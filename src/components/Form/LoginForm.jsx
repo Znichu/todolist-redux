@@ -76,7 +76,7 @@ const LoginForm = (props) => {
                                 name="rememberMe"
                                 type="checkbox"
                                 onChange={formik.handleChange}
-                                value={formik.values.rememberMe}
+                                checked={formik.values.rememberMe}
                             />
                         </div>
                         <Button type="submit" color='teal' fluid size='large'>

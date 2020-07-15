@@ -3,23 +3,29 @@ import {Controller, useForm} from "react-hook-form";
 import {Button, Dropdown, Input as SemanticInput, TextArea} from "semantic-ui-react";
 import style from './EditTaskForm.module.css'
 import {ObjType} from "../../types/types";
+import {formatDate} from "../../utils/FormateDate";
 
 type IFormInput = {
     title: string
     description: string |undefined
     priority: number
+    startDate: string | undefined
 }
 type PropsType = {
     title: string
     description: string | null
     priority: number
+    startDate: string | null
     editTask: (data: ObjType) => void
 }
 
 
 export function EditTaskForm(props: PropsType) {
-    const {handleSubmit, register, reset, control, errors} = useForm();
-    const onSubmit = (data: IFormInput) => props.editTask(data);
+    const {handleSubmit, control, errors} = useForm();
+    const onSubmit = (data: IFormInput) => {
+        console.log(data);
+        props.editTask(data);
+    }
     const priority = [
         {key: 'low', text: 'low', value: 0, label: { color: 'green', empty: true, circular: true }},
         {key: 'middle', text: 'middle', value: 1, label: { color: 'yellow', empty: true, circular: true }},
@@ -27,6 +33,7 @@ export function EditTaskForm(props: PropsType) {
         {key: 'urgently', text: 'urgently', value: 3, label: { color: 'red', empty: true, circular: true }},
         {key: 'later', text: 'later', value: 4, label: { color: 'blue', empty: true, circular: true }}
     ]
+    let startDate = formatDate(props.startDate);
 
     return (
         <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +72,17 @@ export function EditTaskForm(props: PropsType) {
                     )}
                 />
                 </div>
-                <Button type='submit'>Submit</Button>
+                <div className="field">
+                    <label>Start Date</label>
+                    <Controller
+                        as={SemanticInput}
+                        name="startDate"
+                        control={control}
+                        defaultValue={startDate}
+                        type="datetime-local"
+                    />
+                </div>
+                <Button color='blue' type='submit'>Save</Button>
             </div>
         </form>
     );

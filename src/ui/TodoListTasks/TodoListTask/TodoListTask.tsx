@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent} from 'react';
+import React, {FormEvent} from 'react';
 import '../../../App.css';
 import {Checkbox, CheckboxProps, Popup, Segment} from "semantic-ui-react";
 import style from "./TodoListTask.module.css"
@@ -56,6 +56,7 @@ class TodoListTask extends React.Component<OwnProps, State> {
                                            open={this.state.editMode}
                                            onClose={this.deactivateEditMode}
                                            editTask={this.editTask}
+                                           startDate={this.props.task.startDate}
                             />
                             :
                             <Popup
@@ -81,7 +82,8 @@ class TodoListTask extends React.Component<OwnProps, State> {
     };
 
     editTask = (obj: ObjType) => {
-        this.props.editTask(this.props.task.id, this.props.task, obj)
+        this.props.editTask(this.props.task.id, this.props.task, obj);
+        this.setState({editMode: false});
     };
     onPriorityChanged = (value: number) => {
         this.props.changePriority(this.props.task.id, this.props.task, value)
