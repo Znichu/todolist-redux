@@ -9,6 +9,7 @@ type PropsType = {
     priority: number
     open: boolean
     startDate: string | null
+    deadline: string | null
     onClose: () => void
     editTask: (obj: ObjType) => void
 }
@@ -16,7 +17,7 @@ type PropsType = {
 export function ModalEditTask (props: PropsType) {
     return (
         <div>
-            <Modal open={props.open} onClose={props.onClose}>
+            <Modal open={props.open}>
                 <Modal.Header>Edit Task</Modal.Header>
                 <Modal.Content>
                     <EditTaskForm editTask={props.editTask}
@@ -24,6 +25,7 @@ export function ModalEditTask (props: PropsType) {
                                   description={props.description}
                                   priority={props.priority}
                                   startDate={props.startDate}
+                                  deadline={props.deadline}
                     />
                 </Modal.Content>
             </Modal>

@@ -4,9 +4,9 @@ import {Checkbox, CheckboxProps, Popup, Segment} from "semantic-ui-react";
 import style from "./TodoListTask.module.css"
 import classNames from 'classnames'
 import TaskMenu from "../../../components/MenuForTask/TaskMenu";
-import {formatDate} from "../../../utils/FormateDate";
 import {ObjType, TaskType} from "../../../types/types";
 import {ModalEditTask} from "../../../components/ModalEditTask/ModalEditTask";
+import moment from "moment";
 
 
 type State = {
@@ -29,7 +29,7 @@ class TodoListTask extends React.Component<OwnProps, State> {
     };
 
     render = () => {
-         let color:  'red' | 'orange' | 'yellow' | 'green' | 'blue' |'grey';
+        let color: 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'grey';
         // @ts-ignore
         color = classNames({
             'green': this.props.task.priority === 0,
@@ -41,34 +41,44 @@ class TodoListTask extends React.Component<OwnProps, State> {
         });
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
-        let formatTaskDate = formatDate(this.props.task.addedDate);
+        let addTaskDate = moment(this.props.task.addedDate).format("DD.MM.YYYY");
+
+        const stylePopup = {
+            borderRadius: '4px',
+            opacity: 0.7,
+        }
+
 
         return (
             <Segment className={style.taskSegment} color={color}>
                 <div className={style.todoListTask}>
-                        <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged} />
-                        {this.state.editMode
-                            ? /*<input onBlur={this.deactivateEditMode} onChange={this.onTitleChanged} autoFocus={true}
-                                     value={this.state.title}/>*/
-                            <ModalEditTask title={this.props.task.title}
-                                           description={this.props.task.description}
-                                           priority={this.props.task.priority}
-                                           open={this.state.editMode}
-                                           onClose={this.deactivateEditMode}
-                                           editTask={this.editTask}
-                                           startDate={this.props.task.startDate}
-                            />
-                            :
-                            <Popup
-                                trigger={ <div  className={taskItem}><span className={style.task}>{this.props.task.title}</span> </div> }
-                                content={"Added: " + formatTaskDate }
-                                position='bottom center'
-                            />
+                    <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged}/>
+                    {this.state.editMode
+                        ?
+                        <ModalEditTask title={this.props.task.title}
+                                       description={this.props.task.description}
+                                       priority={this.props.task.priority}
+                                       open={this.state.editMode}
+                                       onClose={this.deactivateEditMode}
+                                       editTask={this.editTask}
+                                       startDate={this.props.task.startDate}
+                                       deadline={this.props.task.deadline}
+                        />
+                        :
+                        <Popup
+                            trigger={<div className={taskItem}><span
+                                className={style.task}>{this.props.task.title}</span></div>}
+                            content={`Added: ${addTaskDate}`}
+                            position='right center'
+                            style={stylePopup}
+                            inverted
+                        />
 
-                        }
+                    }
 
                     <div className={style.editBlock}>
-                        <TaskMenu onChange={this.onPriorityChanged} onDeleteTask={this.onDeleteTask} activateEditMode={this.activateEditMode} />
+                        <TaskMenu onChange={this.onPriorityChanged} onDeleteTask={this.onDeleteTask}
+                                  activateEditMode={this.activateEditMode}/>
                     </div>
 
                 </div>

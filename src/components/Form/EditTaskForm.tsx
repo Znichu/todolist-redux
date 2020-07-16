@@ -3,19 +3,21 @@ import {Controller, useForm} from "react-hook-form";
 import {Button, Dropdown, Input as SemanticInput, TextArea} from "semantic-ui-react";
 import style from './EditTaskForm.module.css'
 import {ObjType} from "../../types/types";
-import {formatDate} from "../../utils/FormateDate";
+import moment from "moment";
 
 type IFormInput = {
     title: string
     description: string |undefined
     priority: number
     startDate: string | undefined
+    deadline: string | undefined
 }
 type PropsType = {
     title: string
     description: string | null
     priority: number
     startDate: string | null
+    deadline: string | null
     editTask: (data: ObjType) => void
 }
 
@@ -23,7 +25,6 @@ type PropsType = {
 export function EditTaskForm(props: PropsType) {
     const {handleSubmit, control, errors} = useForm();
     const onSubmit = (data: IFormInput) => {
-        console.log(data);
         props.editTask(data);
     }
     const priority = [
@@ -33,7 +34,9 @@ export function EditTaskForm(props: PropsType) {
         {key: 'urgently', text: 'urgently', value: 3, label: { color: 'red', empty: true, circular: true }},
         {key: 'later', text: 'later', value: 4, label: { color: 'blue', empty: true, circular: true }}
     ]
-    let startDate = formatDate(props.startDate);
+
+    let startDate = moment(props.startDate).format("YYYY-MM-DD");
+    let deadLine = moment(props.deadline).format("YYYY-MM-DD");
 
     return (
         <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
@@ -74,12 +77,22 @@ export function EditTaskForm(props: PropsType) {
                 </div>
                 <div className="field">
                     <label>Start Date</label>
+                     <Controller
+                            as={SemanticInput}
+                            name="startDate"
+                            control={control}
+                            defaultValue={startDate}
+                            type="date"
+                        />
+                </div>
+                <div className="field">
+                    <label>Deadline</label>
                     <Controller
                         as={SemanticInput}
-                        name="startDate"
+                        name="deadline"
                         control={control}
-                        defaultValue={startDate}
-                        type="datetime-local"
+                        defaultValue={deadLine}
+                        type="date"
                     />
                 </div>
                 <Button color='blue' type='submit'>Save</Button>
