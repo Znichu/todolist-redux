@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoListTask from "./TodoListTask/TodoListTask";
 import {ObjType, TaskType} from "../../types/types";
-import style from "./TodoListTasks.module.css"
+import style from "./TodoListTasks.module.css";
 
 type Props = {
     tasks: Array<TaskType>
@@ -11,16 +11,17 @@ type Props = {
     deleteTask: (taskId: string) => void
 }
 
-
 class TodoListTasks extends React.Component<Props> {
     render = () => {
-        let tasksElements = this.props.tasks.map( task => <TodoListTask task={task}
-                                                                        changePriority={this.props.changePriority}
-                                                                        changeStatus={this.props.changeStatus}
-                                                                        editTask={this.props.editTask}
-                                                                        key={task.id}
-                                                                        deleteTask={this.props.deleteTask}
-                                                                        />);
+
+        let tasksElements = this.props.tasks.map(task =>
+            <TodoListTask task={task}
+                          changePriority={this.props.changePriority}
+                          changeStatus={this.props.changeStatus}
+                          editTask={this.props.editTask}
+                          key={task.id}
+                          deleteTask={this.props.deleteTask}
+            />);
 
         return (
             <div className={style.todoListTasks}>

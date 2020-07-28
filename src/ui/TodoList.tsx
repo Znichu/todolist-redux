@@ -4,7 +4,7 @@ import TodoListTasks from "./TodoListTasks/TodoListTasks";
 import TodoListTitle from "./TodoListTitle/TodoListTitle";
 import AddNewItemForm from "../components/Form/AddNewItemForm";
 import {connect} from "react-redux";
-import {addTask, changeFilterValue, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
+import {actions, addTask, deleteTask, deleteTodoList, getTasks, updateTask} from "../redux/todo-reducer";
 import {Icon} from "semantic-ui-react";
 import TodoListMenu from "../components/MenuForTodoList/TodoListMenu";
 import {ObjType, TaskType} from "../types/types";
@@ -32,7 +32,6 @@ type OwnProps = {
 
 type Props = MapDispatchProps & OwnProps
 
-
 class TodoList extends React.Component<Props, State> {
 
     state: State = {
@@ -40,7 +39,7 @@ class TodoList extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        this.props.getTasks(this.props.id )
+        this.props.getTasks(this.props.id)
     }
 
     addTask = (newText: string) => {
@@ -87,59 +86,61 @@ class TodoList extends React.Component<Props, State> {
         let {tasks = []} = this.props;
         return (
             <div className={style.todoList}>
-                    <div className={style.todoListDelete}>
-                        <TodoListMenu
-                            changeFilterValue={this.changeFilterValue}
-                            deleteTodoList={this.deleteTodoList}
-                        />
-                    </div>
-                    <div className={style.todoListHeader}>
-                        <TodoListTitle title={this.props.title}
-                                       id={this.props.id}
-                        />
-                    </div>
-                    <TodoListTasks changeStatus={this.changeStatus}
-                                   editTask={this.editTask}
-                                   changePriority={this.changePriority}
-                                   deleteTask={this.deleteTask}
-                                   tasks={tasks.filter(t => {
-                                       switch (this.props.filterValue) {
-                                           case "Completed":
-                                               return t.status === 2;
-                                           case "Active":
-                                               return t.status === 0;
-                                           default:
-                                               return true
-                                       }
-                                   })}
+                <div className={style.todoListDelete}>
+                    <TodoListMenu
+                        changeFilterValue={this.changeFilterValue}
+                        deleteTodoList={this.deleteTodoList}
                     />
-                    <div className={style.editBlock}>
-                        {!this.state.editMode
-                            ? <>
+                </div>
+                <div className={style.todoListHeader}>
+                    <TodoListTitle title={this.props.title}
+                                   id={this.props.id}
+                    />
+                </div>
+                <TodoListTasks changeStatus={this.changeStatus}
+                               editTask={this.editTask}
+                               changePriority={this.changePriority}
+                               deleteTask={this.deleteTask}
+                               tasks={tasks.filter(t => {
+                                   switch (this.props.filterValue) {
+                                       case "Completed":
+                                           return t.status === 2;
+                                       case "Active":
+                                           return t.status === 0;
+                                       default:
+                                           return true
+                                   }
+                               })}
+                />
+                <div className={style.editBlock}>
+                    {!this.state.editMode
+                        ? <>
                             <span
                                 className={style.addCard}
                                 onClick={this.activateEditMode}>
                                 <Icon name='plus' className={style.iconAdd}/>
                                 Add task
                             </span>
-                            </>
-                            : <AddNewItemForm
-                                deactivateEditMode={this.deactivateEditMode}
-                                onBlur={this.deactivateEditMode}
-                                autoFocus={true}
-                                size={"mini"}
-                                addItem={this.addTask}/>
-                        }
-                    </div>
+                        </>
+                        : <AddNewItemForm
+                            deactivateEditMode={this.deactivateEditMode}
+                            onBlur={this.deactivateEditMode}
+                            autoFocus={true}
+                            size={"mini"}
+                            addItem={this.addTask}/>
+                    }
+                </div>
             </div>
         );
     }
 }
 
-/*let mapStateToProps = (state) => ({
-    filteredTasks: getFilteredTask(state)
-})*/
-
-
-export default connect<{}, MapDispatchProps, OwnProps, RootAppState>(null, {addTask, deleteTodoList, deleteTask, updateTask, changeFilterValue, getTasks})(TodoList);
+export default connect<{}, MapDispatchProps, OwnProps, RootAppState>(null, {
+    addTask,
+    deleteTodoList,
+    deleteTask,
+    updateTask,
+    changeFilterValue: actions.changeFilterValue,
+    getTasks
+})(TodoList);
 

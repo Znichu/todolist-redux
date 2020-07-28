@@ -10,13 +10,14 @@ import {Icon} from "semantic-ui-react";
 import Header from "./ui/Header/Header";
 import {RootAppState} from "./redux/store";
 import {TodoListType} from "./types/types";
+import {Preloader} from "./components/Preloader/Preloader";
 
 
 type MapStateProps = {
     todoLists: Array<TodoListType>
     isAuth: boolean
     userName: string | null
-    initialized: boolean
+    initializedApp: boolean
     isFetching: boolean
 }
 
@@ -65,8 +66,9 @@ class App extends React.Component<Props, State> {
                                                                    filterValue={tl.filterValue}
         />);
 
-
-        if (!this.props.isAuth) {
+        if (!this.props.initializedApp) {
+            return <Preloader />
+        } else if (!this.props.isAuth) {
             return <LoginForm login={this.props.login}/>
         }
         return (
@@ -102,7 +104,7 @@ const mapStateToProps = (state: RootAppState): MapStateProps => ({
     todoLists: state.app.todoLists,
     isAuth: state.auth.isAuth,
     userName: state.auth.login,
-    initialized: state.auth.initialized,
+    initializedApp: state.auth.initialized,
     isFetching: state.app.isFetching
 
 });

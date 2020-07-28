@@ -1,18 +1,7 @@
 import {todoListAPI} from "../api/api";
 import {getTodoLists} from "./todo-reducer";
 import {ThunkAction} from "redux-thunk";
-import {RootAppState} from "./store";
-
-const SET_AUTH_DATA = "App/SET_AUTH_DATA";
-const INITIALIZED_SUCCESSES = "App/INITIALIZED_SUCCESSES";
-
-type InitialStateType = {
-    id: null | string
-    email: null | string
-    login: null | string
-    isAuth: boolean
-    initialized: boolean
-}
+import {InferActionTypes, RootAppState} from "./store";
 
 let initialState: InitialStateType = {
     id: null,
@@ -22,17 +11,15 @@ let initialState: InitialStateType = {
     initialized: false
 };
 
-type ActionsType = SetAuthData | InitializedSuccesses
-
-const AuthReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+const AuthReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case SET_AUTH_DATA: {
+        case "APP/SET_AUTH_DATA": {
             return {
                 ...state,
                 ...action.payload
             }
         }
-        case INITIALIZED_SUCCESSES:
+        case "APP/INITIALIZED_SUCCESSES":
             return {
                 ...state,
                 initialized: true
@@ -43,27 +30,16 @@ const AuthReducer = (state: InitialStateType = initialState, action: ActionsType
     }
 };
 
-type SetAuthData = {
-    type: typeof SET_AUTH_DATA
-    payload: {
-        id: string | null
-        login: string | null
-        email: string | null
-        isAuth: boolean
-    }
+//Actions
+export const actions = {
+    setAuthData: (id: string | null, login: string | null, email: string | null, isAuth: boolean) => ({
+        type: "APP/SET_AUTH_DATA",
+        payload: {id, login, email, isAuth}
+    } as const),
+    initializedSuccesses: () => ({type: "APP/INITIALIZED_SUCCESSES"} as const )
 }
-const setAuthData = (id: string | null, login: string | null, email: string | null, isAuth: boolean): SetAuthData => ({
-    type: SET_AUTH_DATA,
-    payload: {id, login, email, isAuth}
-});
 
-type InitializedSuccesses = {
-    type: typeof INITIALIZED_SUCCESSES
-}
-const initializedSuccesses = (): InitializedSuccesses => ({type: INITIALIZED_SUCCESSES});
-
-
-type ThunkType = ThunkAction<void, RootAppState, unknown, ActionsType>
+//Thunk
 export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async (dispatch) => {
     let data = await todoListAPI.login(email, password, rememberMe)
     if (data.resultCode === 0) {
@@ -74,7 +50,7 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
 export const logout = (): ThunkType => async (dispatch) => {
     let data = await todoListAPI.logout()
     if (data.resultCode === 0) {
-        dispatch(setAuthData(null, null, null, false))
+        dispatch(actions.setAuthData(null, null, null, false))
     }
 };
 
@@ -82,7 +58,7 @@ export const setAuth = (): ThunkType => async (dispatch) => {
     let data = await todoListAPI.getAuth()
     if (data.resultCode === 0) {
         let {id, login, email} = data.data;
-        dispatch(setAuthData(id, login, email, true))
+        dispatch(actions.setAuthData(id, login, email, true))
     }
 };
 
@@ -90,9 +66,18 @@ export const initialized = (): ThunkType => (dispatch) => {
     let promise = dispatch(setAuth());
     // @ts-ignore
     promise.then(() => {
-        dispatch(initializedSuccesses());
+        dispatch(actions.initializedSuccesses());
     })
 
 };
 
 export default AuthReducer;
+type ActionsTypes = InferActionTypes<typeof actions>
+type ThunkType = ThunkAction<void, RootAppState, unknown, ActionsTypes>
+type InitialStateType = {
+    id: null | string
+    email: null | string
+    login: null | string
+    isAuth: boolean
+    initialized: boolean
+}

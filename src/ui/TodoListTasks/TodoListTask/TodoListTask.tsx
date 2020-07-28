@@ -29,9 +29,21 @@ class TodoListTask extends React.Component<OwnProps, State> {
     };
 
     render = () => {
-        let color: 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'grey';
+
+        let segmentColors : 'red' | 'orange' | 'yellow'
+        | 'olive'
+        | 'green'
+        | 'teal'
+        | 'blue'
+        | 'violet'
+        | 'purple'
+        | 'pink'
+        | 'brown'
+        | 'grey'
+        | 'black'
+
         // @ts-ignore
-        color = classNames({
+        segmentColors = classNames ({
             'green': this.props.task.priority === 0,
             'yellow': this.props.task.priority === 1,
             'orange': this.props.task.priority === 2,
@@ -39,6 +51,7 @@ class TodoListTask extends React.Component<OwnProps, State> {
             'blue': this.props.task.priority === 4,
             'grey': this.props.task.status === 2,
         });
+        console.log();
         let status = this.props.task.status === 2;
         let taskItem = classNames(style.list, style.listCard);
         let addTaskDate = moment(this.props.task.addedDate).format("DD.MM.YYYY");
@@ -48,39 +61,39 @@ class TodoListTask extends React.Component<OwnProps, State> {
             opacity: 0.7,
         }
 
-
         return (
-            <Segment className={style.taskSegment} color={color}>
+            <Segment className={style.taskSegment} color={segmentColors} >
                 <div className={style.todoListTask}>
                     <Checkbox checked={status} title={this.props.task.title} onChange={this.onIsDoneChanged}/>
                     {this.state.editMode
                         ?
-                        <ModalEditTask title={this.props.task.title}
-                                       description={this.props.task.description}
-                                       priority={this.props.task.priority}
-                                       open={this.state.editMode}
-                                       onClose={this.deactivateEditMode}
-                                       editTask={this.editTask}
-                                       startDate={this.props.task.startDate}
-                                       deadline={this.props.task.deadline}
+                        <ModalEditTask
+                            title={this.props.task.title}
+                            description={this.props.task.description}
+                            priority={this.props.task.priority}
+                            open={this.state.editMode}
+                            onClose={this.deactivateEditMode}
+                            editTask={this.editTask}
+                            startDate={this.props.task.startDate}
+                            deadline={this.props.task.deadline}
                         />
                         :
                         <Popup
-                            trigger={<div className={taskItem}><span
+                                trigger={<div className={taskItem}><span
                                 className={style.task}>{this.props.task.title}</span></div>}
-                            content={`Added: ${addTaskDate}`}
-                            position='right center'
-                            style={stylePopup}
-                            inverted
+                                content={`Added: ${addTaskDate}`}
+                                position='right center'
+                                style={stylePopup}
+                                inverted
                         />
-
                     }
-
                     <div className={style.editBlock}>
-                        <TaskMenu onChange={this.onPriorityChanged} onDeleteTask={this.onDeleteTask}
-                                  activateEditMode={this.activateEditMode}/>
+                        <TaskMenu
+                            onChange={this.onPriorityChanged}
+                            onDeleteTask={this.onDeleteTask}
+                            activateEditMode={this.activateEditMode}
+                        />
                     </div>
-
                 </div>
             </Segment>
         );

@@ -23,7 +23,7 @@ type PropsType = {
 
 
 export function EditTaskForm(props: PropsType) {
-    const {handleSubmit, control, errors} = useForm();
+    const {handleSubmit, control} = useForm();
     const onSubmit = (data: IFormInput) => {
         props.editTask(data);
     }

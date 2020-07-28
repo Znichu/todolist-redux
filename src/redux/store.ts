@@ -9,8 +9,9 @@ const rootReducer = combineReducers({
     auth: AuthReducer,
 });
 
-type RootReducer = typeof rootReducer
-export type RootAppState = ReturnType<RootReducer>
+export type RootAppState = ReturnType<typeof rootReducer>
+
+export type InferActionTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;
