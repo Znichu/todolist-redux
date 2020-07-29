@@ -16,8 +16,6 @@ const MyAccount: React.FC<Props> = (props: Props) => {
     )
 
     const options = [
-        {key: 'user', text: 'Account', icon: 'user'},
-        {key: 'settings', text: 'Settings', icon: 'settings'},
         {key: 'sign-out', text: 'Sign Out', icon: 'sign out', onClick: props.logout},
     ]
 
